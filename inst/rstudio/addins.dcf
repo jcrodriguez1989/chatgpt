@@ -1,0 +1,34 @@
+Name: Ask ChatGPT
+Description: Opens an interactive chat session with ChatGPT
+Binding: run_addin_ask_chatgpt
+Interactive: true
+
+Name: Comment selected code
+Description: Comment the selected code
+Binding: run_addin_comment_code
+Interactive: false
+
+Name: Create variable name
+Description: Create a name for a variable that would be assigned the result of this code
+Binding: run_addin_create_variable_name
+Interactive: false
+
+Name: Explain selected code
+Description: Explain the selected code
+Binding: run_addin_explain_code
+Interactive: false
+
+Name: Find issues in the selected code
+Description: Find issues in the selected code
+Binding: run_addin_find_issues_in_code
+Interactive: false
+
+Name: Optimize selected code
+Description: Optimize the selected code
+Binding: run_addin_optimize_code
+Interactive: false
+
+Name: Refactor selected code
+Description: Refactor the selected code
+Binding: run_addin_refactor_code
+Interactive: false

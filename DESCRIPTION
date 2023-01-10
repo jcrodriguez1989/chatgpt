@@ -15,4 +15,8 @@ LazyData: true
 RoxygenNote: 7.2.0
 Imports:
   httr,
-  jsonlite
+  jsonlite,
+  miniUI,
+  rstudioapi,
+  shiny,
+  utils

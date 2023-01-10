@@ -19,6 +19,7 @@ gpt_get_completions <- function(prompt, openai_api_key = Sys.getenv("OPENAI_API_
     frequency_penalty = 0,
     presence_penalty = 0
   )
+  cat(paste0("\n*** ChatGPT input:\n\n"), prompt, "\n")
   content(POST(
     "https://api.openai.com/v1/completions",
     add_headers("Authorization" = paste("Bearer", openai_api_key)),
