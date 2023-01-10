@@ -1,0 +1,10 @@
+#' ChatGPT: Document Code (in roxygen2 format)
+#'
+#' @param code The code to be documented by ChatGPT.
+#'
+#' @export
+#'
+document_code <- function(code) {
+  prompt <- paste0('Document, in roxygen2 format, this R function: "', code, '"')
+  trimws(sapply(gpt_get_completions(prompt)$choices, function(x) x$text))
+}

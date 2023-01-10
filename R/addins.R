@@ -9,6 +9,7 @@ run_addin <- function(addin_name) {
   addin_function <- switch(addin_name,
     "comment_code" = comment_code,
     "create_variable_name" = create_variable_name,
+    "document_code" = document_code,
     "explain_code" = explain_code,
     "find_issues_in_code" = find_issues_in_code,
     "optimize_code" = optimize_code,
@@ -25,11 +26,12 @@ run_addin <- function(addin_name) {
   selected_code <- paste0(selected_code, collapse = "\n")
   # Apply the addin function.
   out <- addin_function(selected_code)
-  cat(paste0("\n*** ChatGPT output:\n\n"), out, "\n")
+  cat(paste0("\n*** ChatGPT output:\n\n", out, "\n"))
 }
 
 run_addin_comment_code <- function() run_addin("comment_code")
 run_addin_create_variable_name <- function() run_addin("create_variable_name")
+run_addin_document_code <- function() run_addin("document_code")
 run_addin_explain_code <- function() run_addin("explain_code")
 run_addin_find_issues_in_code <- function() run_addin("find_issues_in_code")
 run_addin_optimize_code <- function() run_addin("optimize_code")
@@ -58,7 +60,7 @@ run_addin_ask_chatgpt <- function() {
         getFromNamespace("gpt_get_completions", "chatgpt")(input$question)$choices,
         function(x) x$text
       ))
-      cat(paste0("\n*** ChatGPT output:\n\n"), chatgpt_reply, "\n")
+      cat(paste0("\n*** ChatGPT output:\n\n", chatgpt_reply, "\n"))
       updateTextAreaInput(session, "answer", value = chatgpt_reply)
     })
     observeEvent(input$done, stopApp())

@@ -13,6 +13,11 @@ Description: Create a name for a variable that would be assigned the result of t
 Binding: run_addin_create_variable_name
 Interactive: false
 
+Name: Document code (in roxygen2 format)
+Description: Document a function definition, in roxygen2 format
+Binding: run_addin_document_code
+Interactive: false
+
 Name: Explain selected code
 Description: Explain the selected code
 Binding: run_addin_explain_code
