@@ -75,10 +75,11 @@ coding. Current existing addins:
 Add inline comments to the following R code: "for (i in 1:10) {
   print(i ** 2)
 }"
-#This loop iterates from 1 to 10 and prints the square of each number
-for (i in 1:10) { #loop begins here, looping through values 1 to 10
-  print(i ** 2) #print the square of the current loop iteration number
-} #loop ends here
+# Iterate from 1 to 10 
+for (i in 1:10) {
+  # Print the square of each number
+  print(i ** 2)
+}
 ```
 
 #### `create_variable_name`
@@ -89,7 +90,7 @@ for (i in 1:10) { #loop begins here, looping through values 1 to 10
 *** ChatGPT input:
 
 Give a good variable name to the result of the following R code: "sapply(1:10, function(i) i ** 2)"
-squared_values = sapply(1:10, function(i) i ** 2)
+squared_values
 ```
 
 #### `document_code`
@@ -102,14 +103,16 @@ squared_values = sapply(1:10, function(i) i ** 2)
 Document, in roxygen2 format, this R function: "square_numbers <- function(numbers) numbers ** 2"
 #' Square Numbers
 #'
-#' @param numbers An \code{numeric} vector
+#' Takes a vector of numbers and squares them.
 #'
-#' @return A \code{numeric} vector of squared numbers
+#' @param numbers The vector of numbers to be squared
 #'
-#' @export
+#' @return A vector of the numbers squared
 #'
 #' @examples
-#' square_numbers(1:10)
+#' square_numbers(1:5)
+#'
+#' @export
 #'
 square_numbers <- function(numbers) numbers ** 2
 ```
@@ -124,6 +127,7 @@ square_numbers <- function(numbers) numbers ** 2
 Explain the following R code: "for (i in 1:10) {
   print(i ** 2)
 }"
+This code is looping through the numbers 1-10 and printing the square of each number. The "for" statement is used to create a loop and the "in" keyword specifies the range of numbers from 1 to 10. The "print" statement prints the result of each number squared (i ** 2).
 ```
 
 #### `find_issues_in_code`
@@ -137,6 +141,7 @@ Find issues or bugs in the following R code: "i <- 0
 while (i < 0) {
   i <- i - 1
 }"
+1. The while loop condition is checking if i is less than 0, and since i is set to 0, the loop will never execute.
 ```
 
 #### `optimize_code`
@@ -151,7 +156,7 @@ while (i > 0) {
   i <- i - 1
   print(i)
 }"
-for (i in 10:1) {
+for (i in 10:0) {
   print(i)
 }
 ```
@@ -170,9 +175,12 @@ while (i > 0) {
 }"
 i <- 10
 
-while(i > 0) {
+repeat {
   print(i)
   i <- i - 1
+  if (i <= 0) {
+    break
+  }
 }
 ```
 
