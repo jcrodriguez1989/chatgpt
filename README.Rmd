@@ -5,6 +5,7 @@ output: github_document
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
+library("chatgpt")
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -45,7 +46,7 @@ Or you can do it persistent (session-wide), by assigning it in your `.Renviron` 
 
 ``` r
 OPENAI_API_KEY=XX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-```.
+```
 
 ## Features
 
@@ -65,3 +66,26 @@ cat(paste(
 ```
 
 **Note:** When no code is selected, it will use the whole file's code.
+
+
+## Code Examples
+
+```{r, echo=FALSE, results='asis'}
+pkg_name <- "chatgpt"
+exported_functions <- getNamespaceExports(pkg_name)
+examples_usage <- sapply(exported_functions, function(exported_function) {
+  function_example <- example(exported_function, pkg_name, character.only = TRUE, give.lines = TRUE)
+  function_example <- function_example[grepl("^##D ", function_example)]
+  function_example <- gsub("^##D ", "", function_example)
+  example_result <- capture.output(eval(parse(text = function_example)))
+  example_result <- paste0(example_result, collapse = "\n")
+  paste0(
+    paste0("#### `", exported_function, "`\n\n``` r\n"),
+    paste0("> ", function_example, "\n"),
+    example_result,
+    "\n```",
+    collapse = "\n"
+  )
+})
+cat(paste0("\n", examples_usage, collapse = "\n\n"))
+```
