@@ -49,10 +49,10 @@ run_addin_refactor_code <- function() run_addin("refactor_code")
 run_addin_ask_chatgpt <- function() {
   ui <- miniPage(wellPanel(
     gadgetTitleBar("Ask ChatGPT", NULL),
-    textAreaInput("question", "Question:", width = "100%"),
+    textAreaInput("question", "Question:", width = "100%", height = "150px"),
     actionButton("ask_button", "Ask", icon("paper-plane")),
     br(), br(),
-    textAreaInput("answer", "Answer:", width = "100%")
+    textAreaInput("answer", "Answer:", width = "100%", height = "150px")
   ))
   server <- function(input, output, session) {
     observeEvent(input$ask_button, {

@@ -1,0 +1,67 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-"
+)
+```
+
+# ChatGPT coding assistant for RStudio
+
+<center>
+    <img width="300" height="400" src="https://media.licdn.com/dms/image/C5622AQG8D9NQ_ePuzA/feedshare-shrink_800/0/1673359083125?e=1676505600&v=beta&t=cnmYmdjyiAZ4gwZqqwJy1UXBJ5IlHWAiLWLQuSEjeYk">
+    <p>Meme by Programming Jokes I IT Humor & Memes</p>
+</center>
+
+## Installation
+
+You can install the development version of {chatgpt} from [GitHub](https://github.com/jcrodriguez1989/chatgpt) with:
+
+``` r
+# install.packages("remotes")
+remotes::install_github("jcrodriguez1989/chatgpt")
+```
+
+## Requirements
+
+You need to setup your ChatGPT API key in R.
+
+First you will need to obtain your ChatGPT API key. You can create an API key by accessing [OpenAI API page](https://beta.openai.com/account/api-keys) -don't miss their article about [Best Practices for API Key Safety
+](https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety)-.
+
+Then you have to assign your API key for usage in R, this can be done just for the actual session, by doing:
+
+``` r
+Sys.setenv(OPENAI_API_KEY = "XX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+```
+
+Or you can do it persistent (session-wide), by assigning it in your `.Renviron` file. For it, execute `usethis::edit_r_environ()`, and in that file write a line at the end your API key as
+
+``` r
+OPENAI_API_KEY=XX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+```.
+
+## Features
+
+The {chatgpt} R package provides a set of features to assist in R coding. 
+Current existing addins:
+
+```{r, echo=FALSE, results='asis'}
+addins_info <- readLines("inst/rstudio/addins.dcf")
+addins_info <- addins_info[grepl("^(Name: |Description: )", addins_info)]
+addins_info <- gsub("^(Name: |Description: )", "", addins_info)
+indexes <- seq_len(length(addins_info))
+indexes <- indexes[indexes %% 2 == 1]
+cat(paste(
+  sapply(indexes, function(i) paste0(" - **", addins_info[[i]], ":** ", addins_info[[i + 1]])),
+  collapse = "\n"
+))
+```
+
+**Note:** When no code is selected, it will use the whole file's code.
