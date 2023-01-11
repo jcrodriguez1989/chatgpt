@@ -2,6 +2,11 @@
 #'
 #' @param code The code to be documented by ChatGPT.
 #'
+#' @examples
+#' \dontrun{
+#' cat(document_code("square_numbers <- function(numbers) numbers ** 2"))
+#' }
+#'
 #' @export
 #'
 document_code <- function(code) {

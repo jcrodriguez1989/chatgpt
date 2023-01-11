@@ -12,3 +12,9 @@ refactor_code(code)
 \description{
 ChatGPT: Refactor Code
 }
+\examples{
+\dontrun{
+cat(refactor_code("i <- 10\nwhile (i > 0) {\n  i <- i - 1\n  print(i)\n}"))
+}
+
+}

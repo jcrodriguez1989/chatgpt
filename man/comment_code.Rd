@@ -12,3 +12,9 @@ comment_code(code)
 \description{
 ChatGPT: Comment Code
 }
+\examples{
+\dontrun{
+cat(comment_code("for (i in 1:10) {\n  print(i ** 2)\n}"))
+}
+
+}

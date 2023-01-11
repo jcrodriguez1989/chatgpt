@@ -12,3 +12,9 @@ create_variable_name(code)
 \description{
 ChatGPT: Create Variable Name
 }
+\examples{
+\dontrun{
+cat(create_variable_name("sapply(1:10, function(i) i ** 2)"))
+}
+
+}

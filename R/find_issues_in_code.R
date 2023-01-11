@@ -2,6 +2,11 @@
 #'
 #' @param code The code to be analyzed by ChatGPT.
 #'
+#' @examples
+#' \dontrun{
+#' cat(find_issues_in_code("i <- 0\nwhile (i < 0) {\n  i <- i - 1\n}"))
+#' }
+#'
 #' @export
 #'
 find_issues_in_code <- function(code) {

@@ -12,3 +12,9 @@ optimize_code(code)
 \description{
 ChatGPT: Optimize Code
 }
+\examples{
+\dontrun{
+cat(optimize_code("i <- 10\nwhile (i > 0) {\n  i <- i - 1\n  print(i)\n}"))
+}
+
+}

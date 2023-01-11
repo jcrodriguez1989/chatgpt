@@ -12,3 +12,9 @@ find_issues_in_code(code)
 \description{
 ChatGPT: Find Issues in Code
 }
+\examples{
+\dontrun{
+cat(find_issues_in_code("i <- 0\nwhile (i < 0) {\n  i <- i - 1\n}"))
+}
+
+}

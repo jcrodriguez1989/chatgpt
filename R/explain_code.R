@@ -2,6 +2,11 @@
 #'
 #' @param code The code to be explained by ChatGPT.
 #'
+#' @examples
+#' \dontrun{
+#' cat(explain_code("for (i in 1:10) {\n  print(i ** 2)\n}"))
+#' }
+#'
 #' @export
 #'
 explain_code <- function(code) {

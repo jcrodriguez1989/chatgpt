@@ -2,6 +2,11 @@
 #'
 #' @param code The code to be commented by ChatGPT.
 #'
+#' @examples
+#' \dontrun{
+#' cat(comment_code("for (i in 1:10) {\n  print(i ** 2)\n}"))
+#' }
+#'
 #' @export
 #'
 comment_code <- function(code) {

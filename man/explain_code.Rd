@@ -12,3 +12,9 @@ explain_code(code)
 \description{
 ChatGPT: Explain Code
 }
+\examples{
+\dontrun{
+cat(explain_code("for (i in 1:10) {\n  print(i ** 2)\n}"))
+}
+
+}

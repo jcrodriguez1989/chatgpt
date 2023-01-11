@@ -2,6 +2,11 @@
 #'
 #' @param code The code for which to give a variable name to its result.
 #'
+#' @examples
+#' \dontrun{
+#' cat(create_variable_name("sapply(1:10, function(i) i ** 2)"))
+#' }
+#'
 #' @export
 #'
 create_variable_name <- function(code) {

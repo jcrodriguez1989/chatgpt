@@ -12,3 +12,9 @@ document_code(code)
 \description{
 ChatGPT: Document Code (in roxygen2 format)
 }
+\examples{
+\dontrun{
+cat(document_code("square_numbers <- function(numbers) numbers ** 2"))
+}
+
+}
