@@ -92,6 +92,12 @@ cat(paste0("\n", examples_usage, collapse = "\n\n"))
 
 ## Additional Parameters
 
+### Addin Changes in Place
+
+If you want {chatgpt} addins to take place in the editor -i.e., replace the selected code with the result of the addin execution- then you sould set the environment variable `OPENAI_ADDIN_REPLACE=TRUE`.
+
+### ChatGPT Model Tweaks
+
 ChatGPT model parameters can be tweaked by using environment variables.
 
 The following environment variables variables can be set to tweak the behavior, as documented in https://beta.openai.com/docs/api-reference/completions/create .

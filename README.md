@@ -75,10 +75,10 @@ coding. Current existing addins:
 Add inline comments to the following R code: "for (i in 1:10) {
   print(i ** 2)
 }"
-# This code is looping through the numbers 1 to 10 and printing the square of each number
-for (i in 1:10) { # looping through integers 1 to 10
-  print(i ** 2) # printing the square of each integer
-}
+#This loop iterates from 1 to 10 and prints the square of each number
+for (i in 1:10) { #loop begins here, looping through values 1 to 10
+  print(i ** 2) #print the square of the current loop iteration number
+} #loop ends here
 ```
 
 #### `create_variable_name`
@@ -89,7 +89,7 @@ for (i in 1:10) { # looping through integers 1 to 10
 *** ChatGPT input:
 
 Give a good variable name to the result of the following R code: "sapply(1:10, function(i) i ** 2)"
-squared_values
+squared_values = sapply(1:10, function(i) i ** 2)
 ```
 
 #### `document_code`
@@ -100,19 +100,17 @@ squared_values
 *** ChatGPT input:
 
 Document, in roxygen2 format, this R function: "square_numbers <- function(numbers) numbers ** 2"
-#' Square numbers
-#' 
-#' This function squares a given numeric vector.
-#' 
-#' @param numbers numeric vector.
-#' 
-#' @return numeric vector with each element squared.
-#' 
-#' @examples
-#' square_numbers(c(1, 2, 3, 4))
-#' 
+#' Square Numbers
+#'
+#' @param numbers An \code{numeric} vector
+#'
+#' @return A \code{numeric} vector of squared numbers
+#'
 #' @export
-#' 
+#'
+#' @examples
+#' square_numbers(1:10)
+#'
 square_numbers <- function(numbers) numbers ** 2
 ```
 
@@ -126,7 +124,6 @@ square_numbers <- function(numbers) numbers ** 2
 Explain the following R code: "for (i in 1:10) {
   print(i ** 2)
 }"
-This code is a for loop that will print out the square of numbers from 1 to 10. The first line sets up the loop and states that it will loop through the numbers 1 to 10, and the second line prints out the square of each number. The loop will execute 10 times, printing out the square of 1, 2, 3, 4, 5, 6, 7, 8, 9, and 10.
 ```
 
 #### `find_issues_in_code`
@@ -140,7 +137,6 @@ Find issues or bugs in the following R code: "i <- 0
 while (i < 0) {
   i <- i - 1
 }"
-1. The while loop will never execute, since the condition (i < 0) is always false.
 ```
 
 #### `optimize_code`
@@ -155,7 +151,7 @@ while (i > 0) {
   i <- i - 1
   print(i)
 }"
-for (i in 9:0){
+for (i in 10:1) {
   print(i)
 }
 ```
@@ -172,12 +168,23 @@ while (i > 0) {
   i <- i - 1
   print(i)
 }"
-for (i in 10:1) {
+i <- 10
+
+while(i > 0) {
   print(i)
+  i <- i - 1
 }
 ```
 
 ## Additional Parameters
+
+### Addin Changes in Place
+
+If you want {chatgpt} addins to take place in the editor -i.e., replace
+the selected code with the result of the addin execution- then you sould
+set the environment variable `OPENAI_ADDIN_REPLACE=TRUE`.
+
+### ChatGPT Model Tweaks
 
 ChatGPT model parameters can be tweaked by using environment variables.
 
