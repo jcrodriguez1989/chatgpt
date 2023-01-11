@@ -72,7 +72,7 @@ cat(paste(
 
 ```{r, echo=FALSE, results='asis'}
 pkg_name <- "chatgpt"
-exported_functions <- getNamespaceExports(pkg_name)
+exported_functions <- sort(getNamespaceExports(pkg_name))
 examples_usage <- sapply(exported_functions, function(exported_function) {
   function_example <- example(exported_function, pkg_name, character.only = TRUE, give.lines = TRUE)
   function_example <- function_example[grepl("^##D ", function_example)]
@@ -89,3 +89,16 @@ examples_usage <- sapply(exported_functions, function(exported_function) {
 })
 cat(paste0("\n", examples_usage, collapse = "\n\n"))
 ```
+
+## Additional Parameters
+
+ChatGPT model parameters can be tweaked by using environment variables.
+
+The following environment variables variables can be set to tweak the behavior, as documented in https://beta.openai.com/docs/api-reference/completions/create .
+
+* `OPENAI_MODEL`; defaults to `"text-davinci-003"`
+* `OPENAI_MAX_TOKENS`; defaults to `256`
+* `OPENAI_TEMPERATURE`; defaults to `0.7`
+* `OPENAI_TOP_P`; defaults to `1`
+* `OPENAI_FREQUENCY_PENALTY`; defaults to `0`
+* `OPENAI_PRESENCE_PENALTY`; defaults to `0`

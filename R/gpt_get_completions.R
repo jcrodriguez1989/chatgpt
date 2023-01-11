@@ -12,12 +12,12 @@ gpt_get_completions <- function(prompt, openai_api_key = Sys.getenv("OPENAI_API_
   }
   # See https://beta.openai.com/docs/api-reference/completions/create
   params <- list(
-    model = "text-davinci-003",
-    temperature = 0.7,
-    max_tokens = 256,
-    top_p = 1,
-    frequency_penalty = 0,
-    presence_penalty = 0
+    model = Sys.getenv("OPENAI_MODEL", "text-davinci-003"),
+    max_tokens = as.numeric(Sys.getenv("OPENAI_MAX_TOKENS", 256)),
+    temperature = as.numeric(Sys.getenv("OPENAI_TEMPERATURE", 0.7)),
+    top_p = as.numeric(Sys.getenv("OPENAI_TOP_P", 1)),
+    frequency_penalty = as.numeric(Sys.getenv("OPENAI_FREQUENCY_PENALTY", 0)),
+    presence_penalty = as.numeric(Sys.getenv("OPENAI_PRESENCE_PENALTY", 0))
   )
   cat(paste0("\n*** ChatGPT input:\n\n", prompt, "\n"))
   content(POST(

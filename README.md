@@ -65,114 +65,17 @@ coding. Current existing addins:
 
 ## Code Examples
 
-#### `find_issues_in_code`
+## Additional Parameters
 
-``` r
-> cat(find_issues_in_code("i <- 0\nwhile (i < 0) {\n  i <- i - 1\n}"))
+ChatGPT model parameters can be tweaked by using environment variables.
 
-*** ChatGPT input:
+The following environment variables variables can be set to tweak the
+behavior, as documented in
+<https://beta.openai.com/docs/api-reference/completions/create> .
 
-Find issues or bugs in the following R code: "i <- 0
-while (i < 0) {
-  i <- i - 1
-}"
-1. The code is an infinite loop because i is always less than 0. The code should be changed to: "i <- 0
-while (i > 0) {
-  i <- i - 1
-}"
-```
-
-#### `refactor_code`
-
-``` r
-> cat(refactor_code("i <- 10\nwhile (i > 0) {\n  i <- i - 1\n  print(i)\n}"))
-
-*** ChatGPT input:
-
-Refactor the following R code, returning valid R code: "i <- 10
-while (i > 0) {
-  i <- i - 1
-  print(i)
-}"
-for (i in 10:1){
-  print(i-1)
-}
-```
-
-#### `create_variable_name`
-
-``` r
-> cat(create_variable_name("sapply(1:10, function(i) i ** 2)"))
-
-*** ChatGPT input:
-
-Give a good variable name to the result of the following R code: "sapply(1:10, function(i) i ** 2)"
-squared_values
-```
-
-#### `comment_code`
-
-``` r
-> cat(comment_code("for (i in 1:10) {\n  print(i ** 2)\n}"))
-
-*** ChatGPT input:
-
-Add inline comments to the following R code: "for (i in 1:10) {
-  print(i ** 2)
-}"
-# This code will loop through the values from 1 to 10, calculating and printing the square of each number.
-for (i in 1:10) { # loop through values 1-10
-  print(i ** 2) # print the square of each value of i
-}
-```
-
-#### `document_code`
-
-``` r
-> cat(document_code("square_numbers <- function(numbers) numbers ** 2"))
-
-*** ChatGPT input:
-
-Document, in roxygen2 format, this R function: "square_numbers <- function(numbers) numbers ** 2"
-#' Squares Numbers
-#'
-#' @param numbers numeric vector
-#' @return numeric vector
-#' @export
-#'
-#' @examples
-#' square_numbers(1:4)
-#'
-square_numbers <- function(numbers) numbers ** 2
-```
-
-#### `optimize_code`
-
-``` r
-> cat(optimize_code("i <- 10\nwhile (i > 0) {\n  i <- i - 1\n  print(i)\n}"))
-
-*** ChatGPT input:
-
-Optimize the following R code: "i <- 10
-while (i > 0) {
-  i <- i - 1
-  print(i)
-}"
-i <- 10
-for (i in 10:1) {
-  print(i)
-}
-```
-
-#### `explain_code`
-
-``` r
-> cat(explain_code("for (i in 1:10) {\n  print(i ** 2)\n}"))
-
-*** ChatGPT input:
-
-Explain the following R code: "for (i in 1:10) {
-  print(i ** 2)
-}"
-This code will print the squares of the numbers from 1 to 10. The for loop is created with the 'for' keyword, followed by a variable (in this case, 'i') and a range (in this case, from 1 to 10). The code within the loop will be executed for each value in the range. In this case, the code is printing the square of the variable i for each value in the range.
-```
+- `OPENAI_MODEL`; defaults to “text-davinci-003”
+- `OPENAI_MAX_TOKENS`; defaults to 256
+- `OPENAI_TEMPERATURE`; defaults to 0.7
+- `OPENAI_TOP_P`; defaults to 1
+- `OPENAI_FREQUENCY_PENALTY`; defaults to 0
+- `OPENAI_PRESENCE_PENALTY`; defaults to 0
