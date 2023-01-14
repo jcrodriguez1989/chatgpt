@@ -75,10 +75,9 @@ coding. Current existing addins:
 Add inline comments to the following R code: "for (i in 1:10) {
   print(i ** 2)
 }"
-# Iterate from 1 to 10 
-for (i in 1:10) {
-  # Print the square of each number
-  print(i ** 2)
+# This code iterates through the sequence 1 to 10 and prints the square of each number
+for (i in 1:10) { # loop through 1 to 10
+  print(i ** 2)  # print the square of each number in the sequence
 }
 ```
 
@@ -102,18 +101,23 @@ squared_values
 
 Document, in roxygen2 format, this R function: "square_numbers <- function(numbers) numbers ** 2"
 #' Square Numbers
-#'
-#' Takes a vector of numbers and squares them.
-#'
-#' @param numbers The vector of numbers to be squared
-#'
-#' @return A vector of the numbers squared
-#'
-#' @examples
-#' square_numbers(1:5)
-#'
+#' 
+#' Squares a number or list of numbers
+#' 
+#' @param numbers A number or list of numbers
+#' 
+#' @return A number or list of numbers, each squared
+#' 
 #' @export
-#'
+#' 
+#' @examples
+#' square_numbers(5)
+#' square_numbers(c(3, 5))
+#' 
+#' @seealso
+#' \code{\link{sqrt}}
+#' 
+#' @export
 square_numbers <- function(numbers) numbers ** 2
 ```
 
@@ -127,7 +131,7 @@ square_numbers <- function(numbers) numbers ** 2
 Explain the following R code: "for (i in 1:10) {
   print(i ** 2)
 }"
-This code is looping through the numbers 1-10 and printing the square of each number. The "for" statement is used to create a loop and the "in" keyword specifies the range of numbers from 1 to 10. The "print" statement prints the result of each number squared (i ** 2).
+This code uses a for loop to print the square of the numbers 1 through 10. The loop starts at 1 and will loop 10 times, each time printing the square of the current value of i. The output of this code will be 1, 4, 9, 16, 25, 36, 49, 64, 81 and 100.
 ```
 
 #### `find_issues_in_code`
@@ -141,7 +145,8 @@ Find issues or bugs in the following R code: "i <- 0
 while (i < 0) {
   i <- i - 1
 }"
-1. The while loop condition is checking if i is less than 0, and since i is set to 0, the loop will never execute.
+1. The while loop condition is incorrect; it should be "while (i > 0)".
+2. The statement "i <- i - 1" should be "i <- i + 1" to allow the loop to execute.
 ```
 
 #### `optimize_code`
@@ -156,7 +161,7 @@ while (i > 0) {
   i <- i - 1
   print(i)
 }"
-for (i in 10:0) {
+for (i in 9:0) {
   print(i)
 }
 ```
@@ -175,16 +180,17 @@ while (i > 0) {
 }"
 i <- 10
 
-repeat {
+for (i in seq(from = 10, to = 0, by = -1)) {
   print(i)
-  i <- i - 1
-  if (i <= 0) {
-    break
-  }
 }
 ```
 
 ## Additional Parameters
+
+### Disable Console Messages
+
+If you want {chatgpt} not to show messages in console, please set the
+environment variable `OPENAI_VERBOSE=FALSE`.
 
 ### Addin Changes in Place
 

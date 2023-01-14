@@ -67,7 +67,6 @@ cat(paste(
 
 **Note:** When no code is selected, it will use the whole file's code.
 
-
 ## Code Examples
 
 ```{r, echo=FALSE, results='asis'}
@@ -91,6 +90,10 @@ cat(paste0("\n", examples_usage, collapse = "\n\n"))
 ```
 
 ## Additional Parameters
+
+### Disable Console Messages
+
+If you want {chatgpt} not to show messages in console, please set the environment variable `OPENAI_VERBOSE=FALSE`.
 
 ### Addin Changes in Place
 
