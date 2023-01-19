@@ -8,6 +8,11 @@ Description: Comment the selected code
 Binding: run_addin_comment_code
 Interactive: false
 
+Name: Create unit tests
+Description: Create testthat unit tests for the selected code
+Binding: run_addin_create_unit_tests
+Interactive: false
+
 Name: Create variable name
 Description: Create a name for a variable that would be assigned the result of this code
 Binding: run_addin_create_variable_name

@@ -75,10 +75,42 @@ coding. Current existing addins:
 Add inline comments to the following R code: "for (i in 1:10) {
   print(i ** 2)
 }"
-# This code iterates through the sequence 1 to 10 and prints the square of each number
-for (i in 1:10) { # loop through 1 to 10
-  print(i ** 2)  # print the square of each number in the sequence
+# Loop through the values 1-10
+for (i in 1:10) {
+  # Print the squared value of i
+  print(i ** 2)
 }
+```
+
+#### `create_unit_tests`
+
+``` r
+> cat(create_unit_tests("squared_numbers <- function(numbers) {\n  numbers ^ 2\n}"))
+
+*** ChatGPT input:
+
+Create a full testthat file, with test cases for the following R code: "squared_numbers <- function(numbers) {
+  numbers ^ 2
+}"
+library(testthat)
+
+context("Test squared_numbers function")
+
+# Test 1: Check if function works with a single input
+test_that("Squared numbers should work with a single input", {
+  expect_equal(squared_numbers(2), 4)
+})
+
+# Test 2: Check if function works with a vector of inputs
+test_that("Squared numbers should work with a vector of inputs", {
+  expect_equal(squared_numbers(c(1, 2, 3)), c(1, 4, 9))
+})
+
+# Test 3: Check if function works with a matrix of inputs
+test_that("Squared numbers should work with a matrix of inputs", {
+  expect_equal(squared_numbers(matrix(c(1, 2, 3, 4), nrow = 2, ncol = 2)), 
+               matrix(c(1, 4, 9, 16), nrow = 2, ncol = 2))
+})
 ```
 
 #### `create_variable_name`
@@ -100,25 +132,16 @@ squared_values
 *** ChatGPT input:
 
 Document, in roxygen2 format, this R function: "square_numbers <- function(numbers) numbers ** 2"
-#' Square Numbers
-#' 
-#' Squares a number or list of numbers
-#' 
-#' @param numbers A number or list of numbers
-#' 
-#' @return A number or list of numbers, each squared
-#' 
-#' @export
-#' 
-#' @examples
-#' square_numbers(5)
-#' square_numbers(c(3, 5))
-#' 
-#' @seealso
-#' \code{\link{sqrt}}
-#' 
-#' @export
-square_numbers <- function(numbers) numbers ** 2
+'#' Square Numbers
+'#'
+'#' Computes the square of a number
+'#'
+'#' @param numbers the number to be squared
+'#' @return the squared number
+'#' @export
+square_numbers <- function(numbers) {
+  numbers ** 2
+}
 ```
 
 #### `explain_code`
@@ -131,7 +154,7 @@ square_numbers <- function(numbers) numbers ** 2
 Explain the following R code: "for (i in 1:10) {
   print(i ** 2)
 }"
-This code uses a for loop to print the square of the numbers 1 through 10. The loop starts at 1 and will loop 10 times, each time printing the square of the current value of i. The output of this code will be 1, 4, 9, 16, 25, 36, 49, 64, 81 and 100.
+This code will print the squares of the numbers 1 to 10. The for loop will iterate over the numbers 1 to 10, and for each number, the code will print the result of that number raised to the power of 2 (i.e. the square of that number).
 ```
 
 #### `find_issues_in_code`
@@ -145,8 +168,9 @@ Find issues or bugs in the following R code: "i <- 0
 while (i < 0) {
   i <- i - 1
 }"
-1. The while loop condition is incorrect; it should be "while (i > 0)".
-2. The statement "i <- i - 1" should be "i <- i + 1" to allow the loop to execute.
+1. The while loop is always false, since the starting value of i is 0 and the code is checking if it is less than 0. It should be while (i > 0).
+
+2. The value of i is not modified inside the loop, so the loop will never terminate. It should be i <- i - 1.
 ```
 
 #### `optimize_code`
@@ -161,7 +185,7 @@ while (i > 0) {
   i <- i - 1
   print(i)
 }"
-for (i in 9:0) {
+for (i in 10:0) {
   print(i)
 }
 ```
@@ -178,9 +202,7 @@ while (i > 0) {
   i <- i - 1
   print(i)
 }"
-i <- 10
-
-for (i in seq(from = 10, to = 0, by = -1)) {
+for(i in 10:1){
   print(i)
 }
 ```
