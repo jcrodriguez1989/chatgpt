@@ -70,10 +70,7 @@ run_addin_ask_chatgpt <- function() {
   ))
   server <- function(input, output, session) {
     observeEvent(input$ask_button, {
-      chatgpt_reply <- trimws(sapply(
-        getFromNamespace("gpt_get_completions", "chatgpt")(input$question)$choices,
-        function(x) x$text
-      ))
+      chatgpt_reply <- ask_chatgpt(input$question)
       if (as.logical(Sys.getenv("OPENAI_VERBOSE", TRUE))) {
         cat(paste0("\n*** ChatGPT output:\n\n", chatgpt_reply, "\n"))
       }
