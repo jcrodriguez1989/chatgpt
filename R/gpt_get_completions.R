@@ -10,22 +10,26 @@ gpt_get_completions <- function(prompt, openai_api_key = Sys.getenv("OPENAI_API_
   if (nchar(openai_api_key) == 0) {
     stop("`OPENAI_API_KEY` not provided.")
   }
-  # See https://beta.openai.com/docs/api-reference/completions/create
-  model <- Sys.getenv("OPENAI_MODEL", "text-davinci-003")
+  # See https://platform.openai.com/docs/api-reference/chat
+  # and https://beta.openai.com/docs/api-reference/completions/create
+  model <- Sys.getenv("OPENAI_MODEL", "gpt-3.5-turbo")
   params <- list(
     model = model,
-    max_tokens = as.numeric(Sys.getenv("OPENAI_MAX_TOKENS",256)),
-    temperature = as.numeric(Sys.getenv("OPENAI_TEMPERATURE",0.7)),
-    top_p = as.numeric(Sys.getenv("OPENAI_TOP_P",1)),
-    frequency_penalty = as.numeric(Sys.getenv("OPENAI_FREQUENCY_PENALTY",0)),
-    presence_penalty = as.numeric(Sys.getenv("OPENAI_PRESENCE_PENALTY",0))
+    max_tokens = as.numeric(Sys.getenv("OPENAI_MAX_TOKENS", 256)),
+    temperature = as.numeric(Sys.getenv("OPENAI_TEMPERATURE", 1)),
+    top_p = as.numeric(Sys.getenv("OPENAI_TOP_P", 1)),
+    frequency_penalty = as.numeric(Sys.getenv("OPENAI_FREQUENCY_PENALTY", 0)),
+    presence_penalty = as.numeric(Sys.getenv("OPENAI_PRESENCE_PENALTY", 0))
   )
   if (as.logical(Sys.getenv("OPENAI_VERBOSE", TRUE))) {
     cat(paste0("\n*** ChatGPT input:\n\n", prompt, "\n"))
   }
-  if (model == "gpt-3.5-turbo") {
-    messages = list(
-      list(role = "system", content = "You are a helpful assistant."),
+  if (grepl("gpt-3.5-turbo", model)) {
+    messages <- list(
+      list(
+        role = "system",
+        content = "You are a helpful assistant with extensive knowledge of R programming."
+      ),
       list(role = "user", content = prompt)
     )
     content(POST(

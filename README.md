@@ -4,7 +4,7 @@
 # ChatGPT coding assistant for RStudio
 
 <center>
-<img width="300" height="400" src="https://media.licdn.com/dms/image/C5622AQG8D9NQ_ePuzA/feedshare-shrink_800/0/1673359083125?e=1676505600&v=beta&t=cnmYmdjyiAZ4gwZqqwJy1UXBJ5IlHWAiLWLQuSEjeYk">
+<img width="300" height="400" src="man/figures/chatgpt_meme.jpeg">
 <p>
 Meme by Programming Jokes I IT Humor & Memes
 </p>
@@ -52,6 +52,8 @@ coding. Current existing addins:
 
 - **Ask ChatGPT:** Opens an interactive chat session with ChatGPT
 - **Comment selected code:** Comment the selected code
+- **Create unit tests:** Create testthat unit tests for the selected
+  code
 - **Create variable name:** Create a name for a variable that would be
   assigned the result of this code
 - **Document code (in roxygen2 format):** Document a function
@@ -65,6 +67,17 @@ coding. Current existing addins:
 
 ## Code Examples
 
+#### `ask_chatgpt`
+
+``` r
+> cat(ask_chatgpt("What do you think about R language?"))
+
+*** ChatGPT input:
+
+What do you think about R language?
+R language is a powerful, open-source programming language for statistical computing and graphical visualization. It’s an excellent choice for data analysis and statistical modeling. R has a wide range of features available and is highly extensible, allowing users to create custom packages and add-ons. With many different tutorials and guides available to help get started, R is an accessible language and can be used for both simple and complex statistical analysis and data analysis projects.
+```
+
 #### `comment_code`
 
 ``` r
@@ -75,9 +88,9 @@ coding. Current existing addins:
 Add inline comments to the following R code: "for (i in 1:10) {
   print(i ** 2)
 }"
-# Loop through the values 1-10
+#Loop through nums 1-10
 for (i in 1:10) {
-  # Print the squared value of i
+  #Print the square of each num
   print(i ** 2)
 }
 ```
@@ -92,24 +105,22 @@ for (i in 1:10) {
 Create a full testthat file, with test cases for the following R code: "squared_numbers <- function(numbers) {
   numbers ^ 2
 }"
+# testthat file
+
 library(testthat)
 
-context("Test squared_numbers function")
+context("squared_numbers()")
 
-# Test 1: Check if function works with a single input
-test_that("Squared numbers should work with a single input", {
-  expect_equal(squared_numbers(2), 4)
+test_that("basic squared_numbers() is able to squared number", {
+  expect_equal(squared_numbers(4), 16)
 })
 
-# Test 2: Check if function works with a vector of inputs
-test_that("Squared numbers should work with a vector of inputs", {
-  expect_equal(squared_numbers(c(1, 2, 3)), c(1, 4, 9))
+test_that("squared_numbers() result is number", {
+  expect_type(squared_numbers(4), "numeric")
 })
 
-# Test 3: Check if function works with a matrix of inputs
-test_that("Squared numbers should work with a matrix of inputs", {
-  expect_equal(squared_numbers(matrix(c(1, 2, 3, 4), nrow = 2, ncol = 2)), 
-               matrix(c(1, 4, 9, 16), nrow = 2, ncol = 2))
+test_that("squared_numbers() is able to handle vector input", {
+  expect_equal(squared_numbers(c(1,3)), c(1,9))
 })
 ```
 
@@ -121,7 +132,7 @@ test_that("Squared numbers should work with a matrix of inputs", {
 *** ChatGPT input:
 
 Give a good variable name to the result of the following R code: "sapply(1:10, function(i) i ** 2)"
-squared_values
+squares
 ```
 
 #### `document_code`
@@ -132,16 +143,20 @@ squared_values
 *** ChatGPT input:
 
 Document, in roxygen2 format, this R function: "square_numbers <- function(numbers) numbers ** 2"
-'#' Square Numbers
-'#'
-'#' Computes the square of a number
-'#'
-'#' @param numbers the number to be squared
-'#' @return the squared number
-'#' @export
-square_numbers <- function(numbers) {
-  numbers ** 2
-}
+#' Square a Numeric Vector
+#' 
+#' Take a numeric vector as an argument and square each element
+#' 
+#' @param numbers A numeric vector
+#' 
+#' @return A numeric vector with each element squared
+#' 
+#' @examples
+#' square_numbers(2:10)
+#' 
+#' @export
+#' 
+square_numbers <- function(numbers) numbers ** 2
 ```
 
 #### `explain_code`
@@ -154,7 +169,7 @@ square_numbers <- function(numbers) {
 Explain the following R code: "for (i in 1:10) {
   print(i ** 2)
 }"
-This code will print the squares of the numbers 1 to 10. The for loop will iterate over the numbers 1 to 10, and for each number, the code will print the result of that number raised to the power of 2 (i.e. the square of that number).
+The code is a for loop that prints the square of numbers 1 through 10 (i.e., 1, 4, 9, 16, 25, 36, 49, 64, 81, and 100). The loop starts with i=1 and iterates through 10 with the command "i in 1:10," and the square of each number is printed using the expression "i**2."
 ```
 
 #### `find_issues_in_code`
@@ -168,9 +183,7 @@ Find issues or bugs in the following R code: "i <- 0
 while (i < 0) {
   i <- i - 1
 }"
-1. The while loop is always false, since the starting value of i is 0 and the code is checking if it is less than 0. It should be while (i > 0).
-
-2. The value of i is not modified inside the loop, so the loop will never terminate. It should be i <- i - 1.
+1. The loop condition is incorrect. It should be "i > 0" instead of "i < 0".
 ```
 
 #### `optimize_code`
@@ -185,8 +198,9 @@ while (i > 0) {
   i <- i - 1
   print(i)
 }"
-for (i in 10:0) {
-  print(i)
+i <- 10
+for (i in 10:1) {
+  print(i-1)
 }
 ```
 
@@ -202,7 +216,7 @@ while (i > 0) {
   i <- i - 1
   print(i)
 }"
-for(i in 10:1){
+for (i in 10:1) {
   print(i)
 }
 ```
@@ -228,9 +242,9 @@ The following environment variables variables can be set to tweak the
 behavior, as documented in
 <https://beta.openai.com/docs/api-reference/completions/create> .
 
-- `OPENAI_MODEL`; defaults to `"text-davinci-003"`
+- `OPENAI_MODEL`; defaults to `"gpt-3.5-turbo"`
 - `OPENAI_MAX_TOKENS`; defaults to `256`
-- `OPENAI_TEMPERATURE`; defaults to `0.7`
+- `OPENAI_TEMPERATURE`; defaults to `1`
 - `OPENAI_TOP_P`; defaults to `1`
 - `OPENAI_FREQUENCY_PENALTY`; defaults to `0`
 - `OPENAI_PRESENCE_PENALTY`; defaults to `0`
