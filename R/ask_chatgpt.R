@@ -12,5 +12,5 @@
 #' @export
 #'
 ask_chatgpt <- function(question) {
-  trimws(sapply(gpt_get_completions(question)$choices, function(x) x$text))
+  parse_response(gpt_get_completions(question))
 }
