@@ -13,5 +13,5 @@
 #'
 find_issues_in_code <- function(code) {
   prompt <- paste0('Find issues or bugs in the following R code: "', code, '"')
-  trimws(sapply(gpt_get_completions(prompt)$choices, function(x) x$text))
+  parse_response(gpt_get_completions(prompt))
 }
