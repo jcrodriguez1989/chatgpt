@@ -14,6 +14,5 @@ Returns a character vector containing the text content of the response.
 }
 \description{
 Takes the raw response from the OpenAI API and extracts the text content from it.
-This function is currently designed to differentiate between gpt-3.5-turbo and
-others.
+This function is currently designed to differentiate between gpt-3.5-turbo and others.
 }
