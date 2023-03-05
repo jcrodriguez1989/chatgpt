@@ -2,6 +2,7 @@
 
 export(ask_chatgpt)
 export(comment_code)
+export(complete_code)
 export(create_unit_tests)
 export(create_variable_name)
 export(document_code)
