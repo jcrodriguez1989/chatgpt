@@ -15,6 +15,7 @@ run_addin <- function(addin_name) {
     "find_issues_in_code" = find_issues_in_code,
     "optimize_code" = optimize_code,
     "refactor_code" = refactor_code,
+    "complete_code" = complete_code,
     stop("`addin_name` not found.")
   )
   # Get the selected code.
@@ -50,6 +51,7 @@ run_addin_explain_code <- function() run_addin("explain_code")
 run_addin_find_issues_in_code <- function() run_addin("find_issues_in_code")
 run_addin_optimize_code <- function() run_addin("optimize_code")
 run_addin_refactor_code <- function() run_addin("refactor_code")
+run_addin_complete_code <- function() run_addin("complete_code")
 
 #' Ask ChatGPT
 #'
