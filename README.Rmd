@@ -77,7 +77,7 @@ examples_usage <- sapply(exported_functions, function(exported_function) {
   function_example <- function_example[grepl("^##D ", function_example)]
   function_example <- gsub("^##D ", "", function_example)
   example_result <- capture.output(eval(parse(text = function_example)))
-  example_result <- paste0(example_result, collapse = "\n")
+  example_result <- gsub("`|'", "", paste0(example_result, collapse = "\n"))
   paste0(
     paste0("#### `", exported_function, "`\n\n``` r\n"),
     paste0("> ", function_example, "\n"),
