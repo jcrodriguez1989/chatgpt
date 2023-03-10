@@ -8,6 +8,7 @@ run_addin <- function(addin_name) {
   # Select which addin has to be used.
   addin_function <- switch(addin_name,
     "comment_code" = comment_code,
+    "complete_code" = complete_code,
     "create_unit_tests" = create_unit_tests,
     "create_variable_name" = create_variable_name,
     "document_code" = document_code,
@@ -15,7 +16,6 @@ run_addin <- function(addin_name) {
     "find_issues_in_code" = find_issues_in_code,
     "optimize_code" = optimize_code,
     "refactor_code" = refactor_code,
-    "complete_code" = complete_code,
     stop("`addin_name` not found.")
   )
   # Get the selected code.
@@ -44,6 +44,7 @@ run_addin <- function(addin_name) {
 }
 
 run_addin_comment_code <- function() run_addin("comment_code")
+run_addin_complete_code <- function() run_addin("complete_code")
 run_addin_create_unit_tests <- function() run_addin("create_unit_tests")
 run_addin_create_variable_name <- function() run_addin("create_variable_name")
 run_addin_document_code <- function() run_addin("document_code")
@@ -51,7 +52,6 @@ run_addin_explain_code <- function() run_addin("explain_code")
 run_addin_find_issues_in_code <- function() run_addin("find_issues_in_code")
 run_addin_optimize_code <- function() run_addin("optimize_code")
 run_addin_refactor_code <- function() run_addin("refactor_code")
-run_addin_complete_code <- function() run_addin("complete_code")
 
 #' Ask ChatGPT
 #'
