@@ -58,11 +58,12 @@ run_addin_refactor_code <- function() run_addin("refactor_code")
 #' Opens an interactive chat session with ChatGPT
 #'
 #' @importFrom miniUI gadgetTitleBar miniPage
-#' @importFrom shiny actionButton br icon observeEvent runGadget stopApp textAreaInput
+#' @importFrom shiny actionButton br icon observeEvent onStop runGadget stopApp textAreaInput
 #' @importFrom shiny updateTextAreaInput wellPanel
 #' @importFrom utils getFromNamespace
 #'
 run_addin_ask_chatgpt <- function() {
+  reset_chat_session()
   ui <- miniPage(wellPanel(
     gadgetTitleBar("Ask ChatGPT", NULL),
     textAreaInput("question", "Question:", width = "100%", height = "150px"),
@@ -78,7 +79,11 @@ run_addin_ask_chatgpt <- function() {
       }
       updateTextAreaInput(session, "answer", value = chatgpt_reply)
     })
-    observeEvent(input$done, stopApp())
+    observeEvent(input$done, {
+      reset_chat_session()
+      stopApp()
+    })
+    onStop(reset_chat_session)
   }
   runGadget(ui, server)
 }

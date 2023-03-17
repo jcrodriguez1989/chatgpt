@@ -2,15 +2,17 @@
 #'
 #' @param prompt The prompt to generate completions for.
 #' @param openai_api_key OpenAI's API key.
+#' @param messages Available variable, to send the needed messages list to ChatGPT.
 #'
 #' @importFrom httr add_headers content content_type_json POST
 #' @importFrom jsonlite toJSON
 #'
-gpt_get_completions <- function(prompt, openai_api_key = Sys.getenv("OPENAI_API_KEY")) {
+gpt_get_completions <- function(prompt, openai_api_key = Sys.getenv("OPENAI_API_KEY"),
+                                messages = NULL) {
   if (nchar(openai_api_key) == 0) {
     stop("`OPENAI_API_KEY` not provided.")
   }
-  # See https://platform.openai.com/docs/api-reference/chat
+  # See https://platform.openai.com/docs/api-reference/chat .
   params <- list(
     model = Sys.getenv("OPENAI_MODEL", "gpt-3.5-turbo"),
     max_tokens = as.numeric(Sys.getenv("OPENAI_MAX_TOKENS", 256)),
@@ -26,16 +28,18 @@ gpt_get_completions <- function(prompt, openai_api_key = Sys.getenv("OPENAI_API_
   if (nchar(return_language) > 0) {
     return_language <- paste0("You return all your replies in ", return_language, ".")
   }
-  messages <- list(
-    list(
-      role = "system",
-      content = paste(
-        "You are a helpful assistant with extensive knowledge of R programming.",
-        return_language
-      )
-    ),
-    list(role = "user", content = prompt)
-  )
+  if (is.null(messages)) {
+    messages <- list(
+      list(
+        role = "system",
+        content = paste(
+          "You are a helpful assistant with extensive knowledge of R programming.",
+          return_language
+        )
+      ),
+      list(role = "user", content = prompt)
+    )
+  }
   post_res <- POST(
     "https://api.openai.com/v1/chat/completions",
     add_headers("Authorization" = paste("Bearer", openai_api_key)),
