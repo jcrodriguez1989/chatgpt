@@ -22,9 +22,16 @@ knitr::opts_chunk$set(
 
 ## Installation
 
-You can install the development version of {chatgpt} from [GitHub](https://github.com/jcrodriguez1989/chatgpt) with:
+Install the current released version of `chatgpt` from 
+[CRAN](https://cran.r-project.org/package=chatgpt):
 
-``` r
+```{r eval = FALSE}
+install.packages("chatgpt")
+```
+
+Or install the development version from [GitHub](https://github.com/jcrodriguez1989/chatgpt) with:
+
+```{r eval = FALSE}
 # install.packages("remotes")
 remotes::install_github("jcrodriguez1989/chatgpt")
 ```
@@ -71,7 +78,7 @@ cat(paste(
 
 ```{r, echo=FALSE, results='asis'}
 pkg_name <- "chatgpt"
-exported_functions <- sort(getNamespaceExports(pkg_name))
+exported_functions <- setdiff(sort(getNamespaceExports(pkg_name)), "reset_chat_session")
 examples_usage <- sapply(exported_functions, function(exported_function) {
   function_example <- example(exported_function, pkg_name, character.only = TRUE, give.lines = TRUE)
   function_example <- function_example[grepl("^##D ", function_example)]

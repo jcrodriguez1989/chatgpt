@@ -1,5 +1,7 @@
 #' Ask ChatGPT
 #'
+#' Note: See also `reset_chat_session`.
+#'
 #' @param question The question to ask ChatGPT.
 #'
 #' @examples
