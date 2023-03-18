@@ -23,4 +23,5 @@ Imports:
   miniUI,
   rstudioapi,
   shiny,
-  utils
+  utils,
+  clipr

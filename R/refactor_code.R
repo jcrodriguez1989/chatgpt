@@ -11,7 +11,7 @@
 #'
 #' @export
 #'
-refactor_code <- function(code) {
-  prompt <- paste0('Refactor the following R code, returning valid R code: "', code, '"')
+refactor_code <- function(code = clipr::read_clip(allow_non_interactive = TRUE)) {
+  prompt <- paste0('Refactor the following R code, returning valid R code: "', paste(gsub('"', "'", code), collapse = "\n"), '"')
   parse_response(gpt_get_completions(prompt))
 }

@@ -11,7 +11,7 @@
 #'
 #' @export
 #'
-comment_code <- function(code) {
-  prompt <- paste0('Add inline comments to the following R code: "', code, '"')
+comment_code <- function(code = clipr::read_clip(allow_non_interactive = TRUE)) {
+  prompt <- paste0('Add inline comments to the following R code: "', paste(gsub('"', "'", code), collapse = "\n"), '"')
   parse_response(gpt_get_completions(prompt))
 }

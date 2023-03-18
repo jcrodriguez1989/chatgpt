@@ -11,7 +11,7 @@
 #'
 #' @export
 #'
-document_code <- function(code) {
-  prompt <- paste0('Document, in roxygen2 format, this R function: "', code, '"')
+document_code <- function(code = clipr::read_clip(allow_non_interactive = TRUE)) {
+  prompt <- paste0('Document, in roxygen2 format, this R function: "', paste(gsub('"', "'", code), collapse = "\n"), '"')
   parse_response(gpt_get_completions(prompt))
 }
