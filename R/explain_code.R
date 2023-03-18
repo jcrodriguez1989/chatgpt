@@ -11,7 +11,7 @@
 #'
 #' @export
 #'
-explain_code <- function(code) {
+explain_code <- function(code = clipr::read_clip(allow_non_interactive = TRUE) {
   prompt <- paste0('Explain the following R code: "', code, '"')
   parse_response(gpt_get_completions(prompt))
 }
