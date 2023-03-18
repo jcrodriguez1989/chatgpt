@@ -11,7 +11,7 @@
 #'
 #' @export
 #'
-find_issues_in_code <- function(code = clipr::read_clip(allow_non_interactive = TRUE) {
+find_issues_in_code <- function(code = clipr::read_clip(allow_non_interactive = TRUE)) {
   prompt <- paste0('Find issues or bugs in the following R code: "', code, '"')
   parse_response(gpt_get_completions(prompt))
 }

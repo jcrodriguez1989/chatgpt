@@ -13,7 +13,7 @@
 #'
 #' @export
 #'
-create_unit_tests <- function(code = clipr::read_clip(allow_non_interactive = TRUE) {
+create_unit_tests <- function(code = clipr::read_clip(allow_non_interactive = TRUE)) {
   prompt <- paste0(
     'Create a full testthat file, with test cases for the following R code: "', code, '"'
   )

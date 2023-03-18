@@ -11,7 +11,7 @@
 #'
 #' @export
 #'
-create_variable_name <- function(code = clipr::read_clip(allow_non_interactive = TRUE) {
+create_variable_name <- function(code = clipr::read_clip(allow_non_interactive = TRUE)) {
   prompt <- paste0('Give a good variable name to the result of the following R code: "', code, '"')
   parse_response(gpt_get_completions(prompt))
 }
