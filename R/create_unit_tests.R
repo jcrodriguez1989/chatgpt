@@ -3,7 +3,7 @@
 #' Create `{testthat}` test cases for the code.
 #'
 #' @param code The code for which to create unit tests by ChatGPT. If not provided, it will use
-#'   what's on the clipboard.
+#'   what's copied on the clipboard.
 #'
 #' @examples
 #' \dontrun{

@@ -1,7 +1,7 @@
 #' ChatGPT: Complete Code
 #'
-#' @param code The code to be completed by ChatGPT. If not provided, it will use what's on the
-#'   clipboard.
+#' @param code The code to be completed by ChatGPT. If not provided, it will use what's copied on
+#'   the clipboard.
 #'
 #' @examples
 #' \dontrun{

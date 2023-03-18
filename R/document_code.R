@@ -1,7 +1,7 @@
 #' ChatGPT: Document Code (in roxygen2 format)
 #'
-#' @param code The code to be documented by ChatGPT. If not provided, it will use what's on the
-#'   clipboard.
+#' @param code The code to be documented by ChatGPT. If not provided, it will use what's copied on
+#'   the clipboard.
 #'
 #' @examples
 #' \dontrun{

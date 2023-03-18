@@ -1,7 +1,7 @@
 #' ChatGPT: Create Variable Name
 #'
 #' @param code The code for which to give a variable name to its result. If not provided, it will
-#'   use what's on the clipboard.
+#'   use what's copied on the clipboard.
 #'
 #' @examples
 #' \dontrun{

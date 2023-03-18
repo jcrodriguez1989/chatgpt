@@ -1,7 +1,7 @@
 #' ChatGPT: Refactor Code
 #'
-#' @param code The code to be refactored by ChatGPT. If not provided, it will use what's on the
-#'   clipboard.
+#' @param code The code to be refactored by ChatGPT. If not provided, it will use what's copied on
+#'   the clipboard.
 #'
 #' @examples
 #' \dontrun{
