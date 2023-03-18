@@ -19,7 +19,8 @@
 create_unit_tests <- function(code = clipr::read_clip(allow_non_interactive = TRUE)) {
   code <- paste(gsub('"', "'", code), collapse = "\n")
   prompt <- paste0(
-    'Create a full testthat file, with test cases for the following R code: "', code, '"'
+    'Using testthat 3e, version over 3.0.0, create a full testthat file, with test cases for the ',
+    'following R code: "', code, '"'
   )
   parse_response(gpt_get_completions(prompt))
 }
