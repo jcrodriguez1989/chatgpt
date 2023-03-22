@@ -1,7 +1,7 @@
 Package: chatgpt
 Type: Package
 Title: Interface to 'ChatGPT' from R
-Version: 0.2.1
+Version: 0.2.2
 Authors@R: c(
     person(
       given = "Juan Cruz", family = "Rodriguez", role = c("aut", "cre"), 
@@ -18,6 +18,7 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
 Imports:
+  clipr,
   httr,
   jsonlite,
   miniUI,
