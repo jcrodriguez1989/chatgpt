@@ -30,6 +30,9 @@ run_addin <- function(addin_name) {
   selected_code <- paste0(selected_code, collapse = "\n")
   # Apply the addin function.
   out <- addin_function(selected_code)
+  if (is.na(out)){
+    return()
+  }
   if (as.logical(Sys.getenv("OPENAI_ADDIN_REPLACE", FALSE))) {
     doc_range <- doc_context$selection[[1]]$range
     if (is_full_file) {

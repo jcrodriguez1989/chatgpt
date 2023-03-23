@@ -11,7 +11,10 @@
 #'
 custom_prompt <- function(code = clipr::read_clip(allow_non_interactive = TRUE)) {
   code <- paste(gsub('"', "'", code), collapse = "\n")
-  prompt_prefix <- rstudioapi::showPrompt("Custom Prompt", "What prompt would you like to prepend to your selected code?")
+  prompt_prefix <- rstudioapi::showPrompt("Custom Prompt", "What prompt would you like to prepend to your selected code?", )
+  if(is.null(prompt_prefix)){
+    return(NA)
+  }
   prompt <- paste0(prompt_prefix, ': "', code, '"')
   parse_response(gpt_get_completions(prompt))
 }
