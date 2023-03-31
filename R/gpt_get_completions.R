@@ -22,7 +22,7 @@ gpt_get_completions <- function(prompt, openai_api_key = Sys.getenv("OPENAI_API_
     presence_penalty = as.numeric(Sys.getenv("OPENAI_PRESENCE_PENALTY", 0))
   )
   if (as.logical(Sys.getenv("OPENAI_VERBOSE", TRUE))) {
-    cat(paste0("\n*** ChatGPT input:\n\n", prompt, "\n"))
+    message(paste0("\n*** ChatGPT input:\n\n", prompt, "\n"))
   }
   if (grepl("gpt-3.5-turbo", model)) {
     return_language <- Sys.getenv("OPENAI_RETURN_LANGUAGE")
