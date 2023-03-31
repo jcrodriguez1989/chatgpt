@@ -40,6 +40,7 @@ gpt_get_completions <- function(prompt, openai_api_key = Sys.getenv("OPENAI_API_
       list(role = "user", content = prompt)
     )
   } else {
+    # If there are messages provided, then add the `return_language` if provided.
     messages[[which(sapply(messages, function(message) message$role == "system"))]]$content <-
       paste(
         messages[[which(sapply(messages, function(message) message$role == "system"))]]$content,
