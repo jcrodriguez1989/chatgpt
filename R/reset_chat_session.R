@@ -7,7 +7,7 @@
 #'
 #' @export
 #'
-reset_chat_session <- function(system_role = "You are a helpful assistant") {
+reset_chat_session <- function(system_role = "You are a helpful assistant.") {
   assign(
     "chat_session_messages", list(list(role = "system", content = system_role)), envir = .state
   )

@@ -4,7 +4,7 @@
 \alias{reset_chat_session}
 \title{Reset Chat Session}
 \usage{
-reset_chat_session(system_role = "You are a helpful assistant")
+reset_chat_session(system_role = "You are a helpful assistant.")
 }
 \arguments{
 \item{system_role}{ChatGPT's role as an AI assistant.}
