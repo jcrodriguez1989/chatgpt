@@ -8,6 +8,6 @@
 # Empty chat session messages at startup.
 assign(
   "chat_session_messages",
-  list(list(role = "system", content = "You are a helpful assistant")),
+  list(list(role = "system", content = "You are a helpful assistant.")),
   envir = .state
 )

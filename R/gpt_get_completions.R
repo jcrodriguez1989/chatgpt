@@ -4,7 +4,7 @@
 #' @param openai_api_key OpenAI's API key.
 #' @param messages Available variable, to send the needed messages list to ChatGPT.
 #'
-#' @importFrom httr add_headers content content_type_json POST
+#' @importFrom httr add_headers content content_type_json POST use_proxy
 #' @importFrom jsonlite toJSON
 #'
 gpt_get_completions <- function(prompt, openai_api_key = Sys.getenv("OPENAI_API_KEY"),
@@ -39,12 +39,31 @@ gpt_get_completions <- function(prompt, openai_api_key = Sys.getenv("OPENAI_API_
       ),
       list(role = "user", content = prompt)
     )
+  } else {
+    # If there are messages provided, then add the `return_language` if available.
+    messages[[which(sapply(messages, function(message) message$role == "system"))]]$content <-
+      paste(
+        messages[[which(sapply(messages, function(message) message$role == "system"))]]$content,
+        return_language
+      )
   }
+  # Get the proxy to use, if provided.
+  proxy <- NULL
+  if (nchar(Sys.getenv("OPENAI_PROXY")) > 0) {
+    proxy <- Sys.getenv("OPENAI_PROXY")
+    if (grepl("^(?:\\d{1,3}\\.){3}\\d{1,3}:\\d{2,5}$", proxy)) {
+      proxy <- use_proxy(gsub(":.*", "", proxy), as.numeric(gsub(".*:", "", proxy)))
+    } else {
+      stop("Invalid proxy provided in `OPENAI_PROXY`: ", proxy)
+    }
+  }
+  # Run the API query.
   post_res <- POST(
     "https://api.openai.com/v1/chat/completions",
     add_headers("Authorization" = paste("Bearer", openai_api_key)),
     content_type_json(),
-    body = toJSON(c(params, list(messages = messages)), auto_unbox = TRUE)
+    body = toJSON(c(params, list(messages = messages)), auto_unbox = TRUE),
+    proxy
   )
   if (!post_res$status_code %in% 200:299) {
     stop(content(post_res))
