@@ -4,12 +4,18 @@
 \alias{gpt_get_completions}
 \title{Get GPT Completions Endpoint}
 \usage{
-gpt_get_completions(prompt, openai_api_key = Sys.getenv("OPENAI_API_KEY"))
+gpt_get_completions(
+  prompt,
+  openai_api_key = Sys.getenv("OPENAI_API_KEY"),
+  messages = NULL
+)
 }
 \arguments{
 \item{prompt}{The prompt to generate completions for.}
 
 \item{openai_api_key}{OpenAI's API key.}
+
+\item{messages}{Available variable, to send the needed messages list to ChatGPT.}
 }
 \description{
 Get GPT Completions Endpoint
