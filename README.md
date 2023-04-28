@@ -333,7 +333,7 @@ cat(chatgpt::explain_code("for (i in 1:10) {\n  print(i ** 2)\n}"))
 
 ChatGPT model parameters can be tweaked by using environment variables.
 
-The following environment variables variables can be set to tweak the
+The following environment variables can be set to tweak the
 behavior, as documented in
 <https://beta.openai.com/docs/api-reference/completions/create> .
 
