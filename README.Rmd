@@ -125,7 +125,7 @@ E.g., `Sys.setenv("OPENAI_PROXY" = "81.94.255.13:8080")`.
 
 ChatGPT model parameters can be tweaked by using environment variables.
 
-The following environment variables variables can be set to tweak the behavior, as documented in https://beta.openai.com/docs/api-reference/completions/create .
+The following environment variables can be set to tweak the behavior, as documented in https://beta.openai.com/docs/api-reference/completions/create .
 
 * `OPENAI_MODEL`; defaults to `"gpt-3.5-turbo"`
 * `OPENAI_MAX_TOKENS`; defaults to `256`

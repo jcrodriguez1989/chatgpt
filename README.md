@@ -363,7 +363,7 @@ environment variable with a valid `IP:PORT` proxy. E.g.,
 
 ChatGPT model parameters can be tweaked by using environment variables.
 
-The following environment variables variables can be set to tweak the
+The following environment variables can be set to tweak the
 behavior, as documented in
 <https://beta.openai.com/docs/api-reference/completions/create> .
 
