@@ -58,15 +58,30 @@ gpt_get_completions <- function(prompt, openai_api_key = Sys.getenv("OPENAI_API_
     }
   }
   # Run the API query.
-  post_res <- POST(
-    "https://api.openai.com/v1/chat/completions",
-    add_headers("Authorization" = paste("Bearer", openai_api_key)),
-    content_type_json(),
-    body = toJSON(c(params, list(messages = messages)), auto_unbox = TRUE),
-    proxy
-  )
-  if (!post_res$status_code %in% 200:299) {
-    stop(content(post_res))
+  final_res <- list()
+  keep_querying <- TRUE
+  while (keep_querying) {
+    post_res <- POST(
+      "https://api.openai.com/v1/chat/completions",
+      add_headers("Authorization" = paste("Bearer", openai_api_key)),
+      content_type_json(),
+      body = toJSON(c(params, list(messages = messages)), auto_unbox = TRUE),
+      proxy
+    )
+    if (!post_res$status_code %in% 200:299) {
+      stop(content(post_res))
+    }
+    post_res <- content(post_res)
+    final_res <- append(final_res, list(post_res))
+    # In the case the finish_reason is the length of the message, then we need to keep querying.
+    keep_querying <- all(sapply(post_res$choices, function(x) x$finish_reason == "length"))
+    # And update the messages sent to ChatGPT, in order to continue the current session.
+    messages <- append(
+      append(
+        messages, list(list(role = "assistant", content = parse_response(list(post_res))))
+      ),
+      list(list(role = "user", content = "continue"))
+    )
   }
-  content(post_res)
+  final_res
 }
