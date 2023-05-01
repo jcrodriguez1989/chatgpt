@@ -1,7 +1,7 @@
 Package: chatgpt
 Type: Package
 Title: Interface to 'ChatGPT' from R
-Version: 0.2.2
+Version: 0.2.3
 Authors@R: c(
     person(
       given = "Juan Cruz", family = "Rodriguez", role = c("aut", "cre"), 
