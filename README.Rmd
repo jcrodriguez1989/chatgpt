@@ -6,6 +6,7 @@ output: github_document
 
 ```{r, include = FALSE}
 library("chatgpt")
+Sys.setenv("OPENAI_VERBOSE" = FALSE)
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -22,7 +23,7 @@ knitr::opts_chunk$set(
 
 ## Installation
 
-Install the current released version of `chatgpt` from 
+Install the current released version of `{chatgpt}` from 
 [CRAN](https://cran.r-project.org/package=chatgpt):
 
 ```{r eval = FALSE}
