@@ -73,22 +73,36 @@ coding. Current existing addins:
 
 **Note:** When no code is selected, it will use the whole file’s code.
 
+## Common Errors
+
+#### You exceeded your current quota, please check your plan and billing details
+
+``` r
+Error in gpt_get_completions: 
+  list(message = "You exceeded your current quota, please check your plan and billing details.", type = "insufficient_quota", param = NULL, code = NULL)
+```
+
+To fix this, you need to **provide a billing method** in OpenAI. More
+information can be found in this
+[article](https://help.openai.com/en/articles/6891831-error-code-429-you-exceeded-your-current-quota-please-check-your-plan-and-billing-details).
+
 ## Code Examples
 
 #### `ask_chatgpt`
 
 ``` r
 > cat(ask_chatgpt("What do you think about R language?"))
-As an AI language model, I do not have personal preferences. However, R is a popular language among data scientists and statisticians for statistical analysis, data visualization, and machine learning. It has a large community and a vast collection of libraries and packages that make it a powerful tool for data analysis. Overall, it is a useful language for those working with data.
+As an AI language model, I dont have personal opinions, but I can provide you factual information about R language. R is a popular programming language used for statistical computing, data analysis, and graphical visualization. It provides a wide range of tools for analyzing data, including linear and non-linear modeling, time-series analysis, and classification methods, among others. R is also an open-source language, which means it is freely available to use for everyone. Due to its extensive package ecosystem and user-friendly syntax, R is widely preferred by data analysts, statisticians, and researchers.
 ```
 
 #### `comment_code`
 
 ``` r
 > cat(comment_code("for (i in 1:10) {\n  print(i ** 2)\n}"))
-# This for loop iterates through numbers 1 to 10, inclusive
-for (i in 1:10) {
-  # The print function outputs the value of i squared on each iteration
+# This is a for loop that initializes the variable i to 1 and iterates until it reaches 10
+for (i in 1:10) { 
+# The code block within the loop will execute once for each iteration 
+# This line prints the result of i raised to the power of 2 using the ** operator
   print(i ** 2)
 }
 ```
@@ -97,188 +111,182 @@ for (i in 1:10) {
 
 ``` r
 > cat(complete_code("# A function to square each element of a vector\nsquare_each <- function("))
-square_each <- function(vec) {
-  vec_squared <- vec^2
-  return(vec_squared)
+square_each <- function(x){
+  x_squared <- x^2
+  return(x_squared)
 }
 
-This code defines a function called "square_each" that takes a vector as its input argument and returns a new vector with each element squared. The function accomplishes this by raising each element of the input vector to the power of 2 using the "^" operator and then assigning the resulting vector to a new variable called "vec_squared". Finally, the function returns the vec_squared variable.
+# Example usage
+my_vector <- c(1, 2, 3, 4, 5)
+square_each(my_vector) # Output: 1  4  9 16 25
 ```
 
 #### `create_unit_tests`
 
 ``` r
 > cat(create_unit_tests("squared_numbers <- function(numbers) {\n  numbers ^ 2\n}"))
-Sure, heres the testthat file for the squared_numbers function:
+Sure, heres a full testthat file with test cases for the given R code:
 
-
+{r}
 library(testthat)
 
-# Test cases for squared_numbers function
-test_that("Squared numbers function works correctly",
-{
-  numbers <- c(1, 2, 3, 4, 5)
-  squared_numbers <- squared_numbers(numbers)
-  
-  # Check if correct length
-  expect_equal(length(squared_numbers), length(numbers), 
-  info = "Length of output not equal to input")
-  
-  # Check if correct values
-  expect_equal(squared_numbers[1], numbers[1] ^ 2, 
-  info = "Incorrect output value for index 1")
-  
-  expect_equal(squared_numbers[2], numbers[2] ^ 2, 
-  info = "Incorrect output value for index 2")
-  
-  expect_equal(squared_numbers[3], numbers[3] ^ 2, 
-  info = "Incorrect output value for index 3")
-  
-  expect_equal(squared_numbers[4], numbers[4] ^ 2, 
-  info = "Incorrect output value for index 4")
-  
-  expect_equal(squared_numbers[5], numbers[5] ^ 2, 
-  info = "Incorrect output value for index5")
+# Define the function
+squared_numbers <- function(numbers) {
+  numbers ^ 2
+}
+
+# Test case for a vector of one number
+test_that("squared_numbers works with one number", {
+  expect_equal(squared_numbers(2), 4)
 })
 
-# Test for empty input
-test_that("Squared numbers function handles empty input",
-{
-  numbers <- numeric(0)
-  squared_numbers <- squared_numbers(numbers)
-  
-  # Check if output is empty
-  expect_is(squared_numbers, "numeric", 
-  info = "Output is not of type numeric")
-  
-  expect_equal(length(squared_numbers), 0, 
-  info = "Output is not empty")
+# Test case for a vector of multiple numbers
+test_that("squared_numbers works with multiple numbers", {
+  expect_equal(squared_numbers(c(2, 3, 4)), c(4, 9, 16))
 })
 
-# Test for negative input
-test_that("Squared numbers function handles negative input",
-{
-  numbers <- c(-1, -2, -3, -4, -5)
-  squared_numbers <- squared_numbers(numbers)
-  
-  # Check if correct length
-  expect_equal(length(squared_numbers), length(numbers), 
-  info = "Length of output not equal to input")
-  
-  # Check if correct values
-  expect_equal(squared_numbers[1], numbers[1] ^ 2, 
-  info = "Incorrect output value for index 1")
-  
-  expect_equal(squared_numbers[2], numbers[2] ^ 2, 
-  info = "Incorrect output value for index 2")
-  
-  expect_equal(squared_numbers[3], numbers[3] ^ 2, 
-  info ="Incorrect output value for index 3")
-  
-  expect_equal(squared_numbers[4], numbers[4] ^ 2, 
-  info = "Incorrect output value for index 4")
-  
-  expect_equal(squared_numbers[5], numbers[5] ^ 2, 
-  info = "Incorrect output value for index 5")
+# Test case for an empty vector
+test_that("squared_numbers works with an empty vector", {
+  expect_error(squared_numbers(NULL))
+  expect_warning(squared_numbers(NaN))
 })
 
-# Test for non-numeric input
-test_that("Squared numbers function handles non-numeric input",
-{
-  non_numeric_numbers <- c("a", "b", "c", "d")
-  
-  expect_error(squared_numbers(non_numeric_numbers), 
-  info = "Did not handle non-numeric input gracefully")
+# Test case for a non-numeric vector
+test_that("squared_numbers works with a non-numeric vector", {
+  expect_error(squared_numbers("test"))
+  expect_error(squared_numbers(TRUE))
 })
 
- 
 
-This file includes tests for correct output with valid input, handling of empty input, handling of negative input, and handling of non-numeric input.
+In these test cases, were testing:
+- whether the function works with a vector of one number
+- whether the function works with a vector of multiple numbers
+- whether the function gracefully handles an empty vector- whether the function gracefully handles a non-numeric vector
+
+For the first two test cases, were using expect_equal() to check that the functions output matches the expected output. For the next two test cases, were using expect_error() and expect_warning() to check that the function throws the expected errors and warnings.
+
+You can save this code as a file with a .R extension, for example squared_numbers_test.R, and then run the tests with the test_file() function from the testthat package:
+
+{r}
+library(testthat)
+test_file("squared_numbers_test.R")
+
+
+This will output a summary of the test results, showing how many tests passed, skipped, and failed.
 ```
 
 #### `create_variable_name`
 
 ``` r
 > cat(create_variable_name("sapply(1:10, function(i) i ** 2)"))
-A good variable name for the result of the sapply(1:10, function(i) i ** 2) code could be squares_of_1_to_10. This variable name clearly and concisely describes the data that is being stored, which is a vector of the squares of the numbers 1 through 10.
+Here is an example of a good variable name for the result: 
+
+
+squared_values <- sapply(1:10, function(i) i ** 2)
+
+
+The variable name squared_values indicates that the result of the code is a set of values that have been squared.
 ```
 
 #### `document_code`
 
 ``` r
 > cat(document_code("square_numbers <- function(numbers) numbers ** 2"))
+Id be happy to help! Heres an example of how you could document the "square_numbers" function using roxygen2 format:
 
-# Square Numbers
+{r}
+# Square numbers
 #
-# A function that takes a vector or a list of numbers and returns the square of each number.
+# This function takes a vector of numbers and returns their squares.
 #
-# @param numbers A vector or a list of numbers to be squared.
+# @param numbers A numeric vector to be squared
 #
-# @return A vector or a list of the squared numbers.
+# @return A numeric vector representing the squares of the input numbers
 #
 # @examples
-# square_numbers(c(1, 2, 3))
-# # [1] 1 4 9
-# square_numbers(list(4, -2, 0))
-# # [[1]]
-# # [1] 16
-# #
-# # [[2]]
-# # [1] 4
-# #
-# # [[3]]
-# # [1] 0
+# square_numbers(1:5)
 #
 # @export
 square_numbers <- function(numbers) {
-    numbers ** 2
+  numbers ** 2
 }
+
+
+This includes a brief description of the function, an explanation of the input parameter, a description of the output, an example usage of the function, and the @export tag, which indicates that this function should be available to users of the package.
 ```
 
 #### `explain_code`
 
 ``` r
 > cat(explain_code("for (i in 1:10) {\n  print(i ** 2)\n}"))
-The code is a for loop that will iterate over the numerical sequence 1 through 10, assigning each value to the variable i. Within each iteration of the loop, the code will print the result of i raised to the power of 2. Specifically, the double asterisks (**) operator is used to indicate exponentiation in R. So, in each iteration of the loop, the code will print 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, each on a new line.
+This is a for loop that will run 10 times, with the value of i ranging from 1 to 10. 
+
+During each iteration of the loop, the value of i is squared using the ** (exponentiation) operator, and the result is printed using the print() function.
+
+So, each time the loop runs, the output will be:
+
+1
+4
+9
+16
+25
+36
+49
+64
+81
+100
+
+This loop can be used to generate the sequence of squares from 1 to 10.
 ```
 
 #### `find_issues_in_code`
 
 ``` r
 > cat(find_issues_in_code("i <- 0\nwhile (i < 0) {\n  i <- i - 1\n}"))
-The condition i < 0 is initially not met as the variable i is initialized to 0. Therefore, the while loop will not execute at all, resulting in an infinite loop. It seems that the intention might have been to start i from a negative value so that the loop iterates a certain number of times. In that case, the condition should be changed to something like while (i > -n) where n is the desired number of iterations.
+The code creates an infinite loop since the condition inside the while loop (i < 0) is never met when the initial value of i is 0. To fix it, either initialize i with a negative value like i <- -1 or change the comparison operator inside the loop to >, e.g. while (i > 0) { i <- i - 1 }.
 ```
 
 #### `optimize_code`
 
 ``` r
 > cat(optimize_code("i <- 10\nwhile (i > 0) {\n  i <- i - 1\n  print(i)\n}"))
-The above code seems already efficient, but an optimized solution can be the usage of a for loop instead of a while loop as follows:
+The code can be optimized using a for loop which is a more efficient and concise loop for iterating over a sequence of values. Heres the optimized code:
 
-
+R
 for (i in 9:0) {
   print(i)
 }
 
 
-This reduces the number of lines of code and is a more concise and readable solution.
+This code does the same thing as the original code, but its more efficient because it eliminates the need for the while loop and the extra variable assignment. The for loop directly iterates over the sequence from 9 to 0 and prints each value.
 ```
 
 #### `refactor_code`
 
 ``` r
 > cat(refactor_code("i <- 10\nwhile (i > 0) {\n  i <- i - 1\n  print(i)\n}"))
-Here is the refactored code:
+Here is the refactored R code:
 
-R
+
 i <- 10
-while(i > 0) {
-  i <- i - 1
+
+for (i in 9:0) {
   print(i)
 }
 
 
-This code decrements the value of i by one in each iteration of the while loop, and prints the updated value until i reaches zero.
+This can also be done using a while loop:
+
+
+i <- 10
+
+while (i > 0) {
+  print(i - 1)
+  i <- i - 1
+}
+
+
+Both versions will produce the same output as the original code.
 ```
 
 ## Additional Parameters
@@ -302,9 +310,24 @@ To change the language that ChatGPT responds in, the
 ``` r
 Sys.setenv("OPENAI_RETURN_LANGUAGE" = "Español")
 cat(chatgpt::explain_code("for (i in 1:10) {\n  print(i ** 2)\n}"))
-#> Este código R ejecuta un ciclo 'for' que va desde 1 hasta 10 (inclusive). En cada iteración, el valor de 'i' se incrementa en uno y se imprimirá el valor de 'i' al cuadrado en la consola utilizando la función 'print()'. 
+#> El código utiliza un bucle "for" para imprimir los cuadrados de los números del 1 al 10. 
 #> 
-#> Entonces, el resultado impreso en la consola será una lista de los cuadrados de los números del 1 al 10.
+#> La sintaxis "for (i in 1:10)" indica que el bucle se va a ejecutar 10 veces, y que la variable "i" va a tomar valores desde 1 hasta 10. 
+#> 
+#> Dentro del bucle, "print(i ** 2)" calcula el cuadrado del valor actual de "i" y lo imprime en la consola. El operador "**" se usa para elevar un número a una potencia. 
+#> 
+#> Entonces, la salida del código será: 
+#> 
+#> [1] 1
+#> [1] 4
+#> [1] 9
+#> [1] 16
+#> [1] 25
+#> [1] 36
+#> [1] 49
+#> [1] 64
+#> [1] 81
+#> [1] 100
 ```
 
 ### Use ChatGPT behind a proxy
