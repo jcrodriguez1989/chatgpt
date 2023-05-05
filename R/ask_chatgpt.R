@@ -1,5 +1,7 @@
 #' Ask ChatGPT
 #'
+#' Note: See also `reset_chat_session`.
+#'
 #' @param question The question to ask ChatGPT.
 #'
 #' @examples
@@ -12,5 +14,16 @@
 #' @export
 #'
 ask_chatgpt <- function(question) {
-  parse_response(gpt_get_completions(question))
+  # Get the existing chat session messages, and add the new message.
+  chat_session_messages <- append(get("chat_session_messages", envir = .state), list(
+    list(role = "user", content = question)
+  ))
+  # Send the query to ChatGPT.
+  chat_gpt_reply <- parse_response(gpt_get_completions(question, messages = chat_session_messages))
+  chat_session_messages <- append(chat_session_messages, list(
+    list(role = "assistant", content = chat_gpt_reply)
+  ))
+  # Update the chat session messages with the new question and the reply.
+  assign("chat_session_messages", chat_session_messages, .state)
+  chat_gpt_reply
 }

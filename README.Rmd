@@ -6,6 +6,7 @@ output: github_document
 
 ```{r, include = FALSE}
 library("chatgpt")
+Sys.setenv("OPENAI_VERBOSE" = FALSE)
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -22,9 +23,16 @@ knitr::opts_chunk$set(
 
 ## Installation
 
-You can install the development version of {chatgpt} from [GitHub](https://github.com/jcrodriguez1989/chatgpt) with:
+Install the current released version of `{chatgpt}` from 
+[CRAN](https://cran.r-project.org/package=chatgpt):
 
-``` r
+```{r eval = FALSE}
+install.packages("chatgpt")
+```
+
+Or install the development version from [GitHub](https://github.com/jcrodriguez1989/chatgpt) with:
+
+```{r eval = FALSE}
 # install.packages("remotes")
 remotes::install_github("jcrodriguez1989/chatgpt")
 ```
@@ -67,11 +75,22 @@ cat(paste(
 
 **Note:** When no code is selected, it will use the whole file's code.
 
+## Common Errors
+
+#### You exceeded your current quota, please check your plan and billing details   
+
+```r
+Error in gpt_get_completions: 
+  list(message = "You exceeded your current quota, please check your plan and billing details.", type = "insufficient_quota", param = NULL, code = NULL)
+```
+
+To fix this, you need to **provide a billing method** in OpenAI. More information can be found in this [article](https://help.openai.com/en/articles/6891831-error-code-429-you-exceeded-your-current-quota-please-check-your-plan-and-billing-details).
+
 ## Code Examples
 
 ```{r, echo=FALSE, results='asis'}
 pkg_name <- "chatgpt"
-exported_functions <- sort(getNamespaceExports(pkg_name))
+exported_functions <- setdiff(sort(getNamespaceExports(pkg_name)), "reset_chat_session")
 examples_usage <- sapply(exported_functions, function(exported_function) {
   function_example <- example(exported_function, pkg_name, character.only = TRUE, give.lines = TRUE)
   function_example <- function_example[grepl("^##D ", function_example)]
@@ -108,6 +127,11 @@ E.g.,
 Sys.setenv("OPENAI_RETURN_LANGUAGE" = "Español")
 cat(chatgpt::explain_code("for (i in 1:10) {\n  print(i ** 2)\n}"))
 ```
+
+### Use ChatGPT behind a proxy
+
+In order to run ChatGPT queries behind a proxy, set the `OPENAI_PROXY` environment variable with a valid `IP:PORT` proxy.
+E.g., `Sys.setenv("OPENAI_PROXY" = "81.94.255.13:8080")`.
 
 ### ChatGPT Model Tweaks
 

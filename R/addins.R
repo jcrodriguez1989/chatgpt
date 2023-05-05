@@ -36,7 +36,7 @@ run_addin <- function(addin_name) {
     }
     modifyRange(doc_range, out, doc_context$id)
   } else if (as.logical(Sys.getenv("OPENAI_VERBOSE", TRUE))) {
-    cat(paste0("\n*** ChatGPT output:\n\n", out, "\n"))
+    message(paste0("\n*** ChatGPT output:\n\n", out, "\n"))
   } else {
     warning("Please set one of `OPENAI_ADDIN_REPLACE=TRUE` or `OPENAI_VERBOSE=TRUE`")
   }
@@ -58,11 +58,12 @@ run_addin_refactor_code <- function() run_addin("refactor_code")
 #' Opens an interactive chat session with ChatGPT
 #'
 #' @importFrom miniUI gadgetTitleBar miniPage
-#' @importFrom shiny actionButton br icon observeEvent runGadget stopApp textAreaInput
+#' @importFrom shiny actionButton br icon observeEvent onStop runGadget stopApp textAreaInput
 #' @importFrom shiny updateTextAreaInput wellPanel
 #' @importFrom utils getFromNamespace
 #'
 run_addin_ask_chatgpt <- function() {
+  reset_chat_session()
   ui <- miniPage(wellPanel(
     gadgetTitleBar("Ask ChatGPT", NULL),
     textAreaInput("question", "Question:", width = "100%", height = "150px"),
@@ -74,11 +75,15 @@ run_addin_ask_chatgpt <- function() {
     observeEvent(input$ask_button, {
       chatgpt_reply <- ask_chatgpt(input$question)
       if (as.logical(Sys.getenv("OPENAI_VERBOSE", TRUE))) {
-        cat(paste0("\n*** ChatGPT output:\n\n", chatgpt_reply, "\n"))
+        message(paste0("\n*** ChatGPT output:\n\n", chatgpt_reply, "\n"))
       }
       updateTextAreaInput(session, "answer", value = chatgpt_reply)
     })
-    observeEvent(input$done, stopApp())
+    observeEvent(input$done, {
+      reset_chat_session()
+      stopApp()
+    })
+    onStop(reset_chat_session)
   }
   runGadget(ui, server)
 }

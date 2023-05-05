@@ -4,15 +4,14 @@
 \alias{parse_response}
 \title{Parse OpenAI API Response}
 \usage{
-parse_response(raw_response)
+parse_response(raw_responses)
 }
 \arguments{
-\item{raw_response}{The raw response object returned by the OpenAI API.}
+\item{raw_responses}{The raw response object returned by the OpenAI API.}
 }
 \value{
 Returns a character vector containing the text content of the response.
 }
 \description{
 Takes the raw response from the OpenAI API and extracts the text content from it.
-This function is currently designed to differentiate between gpt-3.5-turbo and others.
 }
