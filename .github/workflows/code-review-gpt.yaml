@@ -24,9 +24,8 @@ jobs:
         env:
           URL: ${{ github.event.issue.comments_url }}
         run: |
-          print(GITHUB_BASE_REF <- Sys.getenv("GITHUB_BASE_REF"))
-          print(GITHUB_HEAD_REF <- Sys.getenv("GITHUB_HEAD_REF"))
-          print(GITHUB_TOKEN <- Sys.getenv("GITHUB_PAT"))
+          GITHUB_BASE_REF <- Sys.getenv("GITHUB_BASE_REF")
+          GITHUB_HEAD_REF <- Sys.getenv("GITHUB_HEAD_REF")
           diff <- system(
             paste0("git diff ", GITHUB_BASE_REF, "..", GITHUB_HEAD_REF), intern = TRUE
           )
@@ -40,11 +39,9 @@ jobs:
             '""""""',
             sep = "\n"
           )
-          system(paste0('
-            curl \
-              -X POST $URL \
-              -H "Content-Type: application/json" \
-              -H "Authorization: token ', GITHUB_TOKEN, '" \
-              --data \\'{ "body": "blah blah" }\\'
-          '))
+          httr::POST(
+            Sys.getenv(URL),
+            httr::add_headers(Authorization = paste("token", Sys.getenv("GITHUB_PAT"))),
+            body = list(body = "prompt")
+          )
         shell: Rscript {0}
