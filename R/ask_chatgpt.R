@@ -19,6 +19,7 @@ ask_chatgpt <- function(question) {
     list(role = "user", content = question)
   ))
   # Send the query to ChatGPT.
+  # TODO: This is something urgent to remove!
   chat_gpt_reply <- parse_response(gpt_get_completions(question, messages = chat_session_messages))
   chat_session_messages <- append(chat_session_messages, list(
     list(role = "assistant", content = chat_gpt_reply)
