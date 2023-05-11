@@ -27,7 +27,7 @@ jobs:
           GITHUB_BASE_REF <- Sys.getenv("GITHUB_BASE_REF")
           GITHUB_HEAD_REF <- Sys.getenv("GITHUB_HEAD_REF")
           diff <- system(
-            paste0("git diff ", GITHUB_BASE_REF, "..", GITHUB_HEAD_REF), intern = TRUE
+            paste("git diff", GITHUB_BASE_REF, GITHUB_HEAD_REF), intern = TRUE
           )
           prompt <- paste(
             "Between sextuple quotes is a GitHub PR.",
@@ -40,7 +40,7 @@ jobs:
             sep = "\n"
           )
           httr::POST(
-            Sys.getenv(URL),
+            Sys.getenv("URL"),
             httr::add_headers(Authorization = paste("token", Sys.getenv("GITHUB_PAT"))),
             body = list(body = "prompt")
           )
