@@ -44,7 +44,7 @@ jobs:
           httr::POST(
             Sys.getenv("URL"),
             httr::add_headers(Authorization = paste("token", Sys.getenv("GITHUB_PAT"))),
-            httr::content_type_json(),
+            encode = "json",
             body = prompt
           )
         shell: Rscript {0}
