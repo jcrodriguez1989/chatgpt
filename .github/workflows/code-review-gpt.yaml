@@ -13,6 +13,7 @@ jobs:
       pull-requests: write
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       URL: ${{ github.event.pull_request.comments_url }}
     steps:
       - uses: actions/checkout@v3
@@ -41,10 +42,11 @@ jobs:
             '""""""',
             sep = "\n"
           )
+          code_review <- chatgpt::ask_chatgpt(prompt)
           httr::POST(
             Sys.getenv("URL"),
             httr::add_headers(Authorization = paste("token", Sys.getenv("GITHUB_PAT"))),
             encode = "json",
-            body = list(body = prompt)
+            body = list(body = code_review)
           )
         shell: Rscript {0}
