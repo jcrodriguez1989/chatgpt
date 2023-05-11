@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      URL: ${{ github.event.issue.comments_url }}
     steps:
       - uses: actions/checkout@v3
 
@@ -21,12 +22,11 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v2
 
       - name: code-review
-        env:
-          URL: ${{ github.event.issue.comments_url }}
         run: |
           GITHUB_BASE_REF <- Sys.getenv("GITHUB_BASE_REF")
           GITHUB_HEAD_REF <- Sys.getenv("GITHUB_HEAD_REF")
           print(Sys.getenv("URL"))
+          system("git fetch origin")
           diff <- system(
             paste("git diff", GITHUB_BASE_REF, GITHUB_HEAD_REF), intern = TRUE
           )
