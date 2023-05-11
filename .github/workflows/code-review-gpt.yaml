@@ -20,11 +20,5 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
 
-      - uses: technote-space/get-diff-action@v6
-        with:
-          PATTERNS: |
-            **/*.R
-
       - name: code-review
-        if: env.GIT_DIFF
-        run: echo '${{ env.GIT_DIFF }}' | jq .
+        run: echo Hello world from $GITHUB_BASE_REF to $GITHUB_HEAD_REF
