@@ -3,6 +3,11 @@
 
 # ChatGPT coding assistant for RStudio
 
+<!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/chatgpt)](https://CRAN.R-project.org/package=chatgpt)
+[![R-CMD-check](https://github.com/jcrodriguez1989/chatgpt/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jcrodriguez1989/chatgpt/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
 <center>
 <img width="300" height="400" src="man/figures/chatgpt_meme.jpeg">
 <p>
