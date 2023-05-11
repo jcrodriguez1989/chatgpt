@@ -13,6 +13,11 @@ Description: Complete the selected code
 Binding: run_addin_complete_code
 Interactive: false
 
+Name: Custom prompt
+Description: Give custom prompt to accompany the selected code
+Binding: run_addin_custom_prompt
+Interactive: false
+
 Name: Create unit tests
 Description: Create testthat unit tests for the selected code
 Binding: run_addin_create_unit_tests
