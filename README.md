@@ -6,6 +6,7 @@
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/chatgpt)](https://CRAN.R-project.org/package=chatgpt)
 [![R-CMD-check](https://github.com/jcrodriguez1989/chatgpt/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jcrodriguez1989/chatgpt/actions/workflows/R-CMD-check.yaml)
+[![CRAN downloads](https://cranlogs.r-pkg.org/badges/chatgpt)](https://cran.rstudio.com/web/packages/chatgpt/index.html)
 <!-- badges: end -->
 
 <center>
