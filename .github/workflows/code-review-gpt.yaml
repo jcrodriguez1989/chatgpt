@@ -22,7 +22,8 @@ jobs:
 
       - uses: technote-space/get-diff-action@v6
         with:
-          PATTERNS: *.R
+          PATTERNS: |
+            *.R
 
       - name: code-review
         if: env.GIT_DIFF
