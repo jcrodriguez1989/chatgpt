@@ -78,7 +78,8 @@ gpt_get_completions <- function(prompt, openai_api_key = Sys.getenv("OPENAI_API_
     # And update the messages sent to ChatGPT, in order to continue the current session.
     messages <- append(
       append(
-        messages, list(list(role = "assistant", content = parse_response(list(post_res), 0)))
+        messages,
+        list(list(role = "assistant", content = parse_response(list(post_res), verbosity = 0)))
       ),
       list(list(role = "user", content = "continue"))
     )
