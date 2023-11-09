@@ -139,6 +139,11 @@ cat(chatgpt::explain_code("for (i in 1:10) {\n  print(i ** 2)\n}"))
 In order to run ChatGPT queries behind a proxy, set the `OPENAI_PROXY` environment variable with a valid `IP:PORT` proxy.
 E.g., `Sys.setenv("OPENAI_PROXY" = "81.94.255.13:8080")`.
 
+### Switch OPENAI's API URL
+
+To replace the default OPENAI's API URL (`"https://api.openai.com/v1"`), you can set the `OPENAI_API_URL` environment variable with the URL you need to use.
+E.g., `Sys.setenv("OPENAI_API_URL" = "https://api.chatanywhere.com.cn")`.
+
 ### ChatGPT Model Tweaks
 
 ChatGPT model parameters can be tweaked by using environment variables.
