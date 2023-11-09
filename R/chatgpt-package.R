@@ -11,3 +11,5 @@ assign(
   list(list(role = "system", content = "You are a helpful assistant.")),
   envir = .state
 )
+
+api_url <- Sys.getenv("OPENAI_API_URL", "https://api.openai.com/v1")

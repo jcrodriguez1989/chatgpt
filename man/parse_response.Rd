@@ -4,10 +4,12 @@
 \alias{parse_response}
 \title{Parse OpenAI API Response}
 \usage{
-parse_response(raw_responses)
+parse_response(raw_responses, verbosity = get_verbosity())
 }
 \arguments{
 \item{raw_responses}{The raw response object returned by the OpenAI API.}
+
+\item{verbosity}{The verbosity level for this function.}
 }
 \value{
 Returns a character vector containing the text content of the response.
