@@ -33,7 +33,7 @@ jobs:
           GITHUB_BASE_REF <- paste0("origin/", Sys.getenv("GITHUB_BASE_REF"))
           GITHUB_HEAD_REF <- paste0("origin/", Sys.getenv("GITHUB_HEAD_REF"))
           system("git fetch origin")
-          diff <- system(paste("git diff", GITHUB_BASE_REF, GITHUB_HEAD_REF), intern = TRUE)
+          diff <- system(paste("git diff", GITHUB_HEAD_REF, GITHUB_BASE_REF), intern = TRUE)
           prompt <- paste(
             "Between sextuple quotes is a GitHub PR.",
             "Please perform a code review on it.",
