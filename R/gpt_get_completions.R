@@ -21,7 +21,7 @@ gpt_get_completions <- function(prompt, openai_api_key = Sys.getenv("OPENAI_API_
     frequency_penalty = as.numeric(Sys.getenv("OPENAI_FREQUENCY_PENALTY", 0)),
     presence_penalty = as.numeric(Sys.getenv("OPENAI_PRESENCE_PENALTY", 0))
   )
-  if (as.logical(Sys.getenv("OPENAI_VERBOSE", TRUE))) {
+  if (get_verbosity()) {
     message(paste0("\n*** ChatGPT input:\n\n", prompt, "\n"))
   }
   return_language <- Sys.getenv("OPENAI_RETURN_LANGUAGE")
@@ -62,7 +62,7 @@ gpt_get_completions <- function(prompt, openai_api_key = Sys.getenv("OPENAI_API_
   keep_querying <- TRUE
   while (keep_querying) {
     post_res <- POST(
-      "https://api.openai.com/v1/chat/completions",
+      paste0(api_url, "/chat/completions"),
       add_headers("Authorization" = paste("Bearer", openai_api_key)),
       content_type_json(),
       body = toJSON(c(params, list(messages = messages)), auto_unbox = TRUE),
@@ -78,7 +78,8 @@ gpt_get_completions <- function(prompt, openai_api_key = Sys.getenv("OPENAI_API_
     # And update the messages sent to ChatGPT, in order to continue the current session.
     messages <- append(
       append(
-        messages, list(list(role = "assistant", content = parse_response(list(post_res))))
+        messages,
+        list(list(role = "assistant", content = parse_response(list(post_res), verbosity = 0)))
       ),
       list(list(role = "user", content = "continue"))
     )

@@ -35,7 +35,7 @@ run_addin <- function(addin_name) {
       doc_range <- as.document_range(c(c(0, 0), c(Inf, Inf)))
     }
     modifyRange(doc_range, out, doc_context$id)
-  } else if (as.logical(Sys.getenv("OPENAI_VERBOSE", TRUE))) {
+  } else if (get_verbosity()) {
     message(paste0("\n*** ChatGPT output:\n\n", out, "\n"))
   } else {
     warning("Please set one of `OPENAI_ADDIN_REPLACE=TRUE` or `OPENAI_VERBOSE=TRUE`")
@@ -74,7 +74,7 @@ run_addin_ask_chatgpt <- function() {
   server <- function(input, output, session) {
     observeEvent(input$ask_button, {
       chatgpt_reply <- ask_chatgpt(input$question)
-      if (as.logical(Sys.getenv("OPENAI_VERBOSE", TRUE))) {
+      if (get_verbosity()) {
         message(paste0("\n*** ChatGPT output:\n\n", chatgpt_reply, "\n"))
       }
       updateTextAreaInput(session, "answer", value = chatgpt_reply)
