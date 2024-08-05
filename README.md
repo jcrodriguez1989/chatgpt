@@ -361,3 +361,4 @@ documented in
 - `OPENAI_TOP_P`; defaults to `1`
 - `OPENAI_FREQUENCY_PENALTY`; defaults to `0`
 - `OPENAI_PRESENCE_PENALTY`; defaults to `0`
+- `OPENAI_LOGPROBS`; defaults to `FALSE`
