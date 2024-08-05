@@ -3,7 +3,8 @@
 #' Note: See also `reset_chat_session`.
 #'
 #' @param question The question to ask ChatGPT.
-#' @param session_id The ID of the session to be used.
+#' @param session_id The ID of the session to be used. We can have different conversations by using
+#'   different session IDs.
 #' @param openai_api_key OpenAI's API key.
 #'
 #' @examples

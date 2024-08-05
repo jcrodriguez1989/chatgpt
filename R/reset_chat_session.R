@@ -12,11 +12,11 @@ reset_chat_session <- function(system_role = "You are a helpful assistant.", ses
   if (is.null(session_id)) {
     return()
   }
-  # If `system_role` is a list, then it is a ChatGPT session object.
-  # Otherwise, it's a string specifying ChatGPT's role.
   if (is.list(system_role)) {
+    # If `system_role` is a list, then it is a ChatGPT session object.
     session <- system_role
   } else {
+    # Otherwise, it's a string specifying ChatGPT's role.
     session <- list(list(role = "system", content = system_role))
   }
   all_sessions <- get("chat_session_messages", envir = .state)

@@ -13,7 +13,8 @@ ask_chatgpt(
 \arguments{
 \item{question}{The question to ask ChatGPT.}
 
-\item{session_id}{The ID of the session to be used.}
+\item{session_id}{The ID of the session to be used. We can have different conversations by using
+different session IDs.}
 
 \item{openai_api_key}{OpenAI's API key.}
 }
