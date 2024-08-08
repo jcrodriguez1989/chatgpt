@@ -6,10 +6,6 @@
 .state <- new.env(parent = emptyenv())
 
 # Empty chat session messages at startup.
-assign(
-  "chat_session_messages",
-  list(list(role = "system", content = "You are a helpful assistant.")),
-  envir = .state
-)
+assign("chat_session_messages", list(), envir = .state)
 
 api_url <- Sys.getenv("OPENAI_API_URL", "https://api.openai.com/v1")
