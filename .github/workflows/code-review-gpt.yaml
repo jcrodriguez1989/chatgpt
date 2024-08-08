@@ -33,7 +33,7 @@ jobs:
           GITHUB_BASE_REF <- paste0("origin/", Sys.getenv("GITHUB_BASE_REF"))
           GITHUB_HEAD_REF <- paste0("origin/", Sys.getenv("GITHUB_HEAD_REF"))
           system("git fetch origin")
-          git_diff_cmnd <- paste("git diff", GITHUB_HEAD_REF, GITHUB_BASE_REF)
+          git_diff_cmnd <- paste("git diff", GITHUB_BASE_REF, GITHUB_HEAD_REF)
           diff <- system(git_diff_cmnd, intern = TRUE)
           prompt <- paste(
             paste0(

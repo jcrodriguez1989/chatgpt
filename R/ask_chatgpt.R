@@ -6,6 +6,7 @@
 #' @param session_id The ID of the session to be used. We can have different conversations by using
 #'   different session IDs.
 #' @param openai_api_key OpenAI's API key.
+#' @param images A list of images to attach to the question. It could be a list of URLs or paths.
 #'
 #' @examples
 #' \dontrun{
@@ -16,10 +17,11 @@
 #'
 #' @export
 #'
-ask_chatgpt <- function(question, session_id = "1", openai_api_key = Sys.getenv("OPENAI_API_KEY")) {
+ask_chatgpt <- function(question, session_id = "1", openai_api_key = Sys.getenv("OPENAI_API_KEY"),
+                        images = NULL) {
   # Get the existing chat session messages, and add the new message.
   chat_session_messages <- append(get_chat_session(session_id), list(
-    list(role = "user", content = question)
+    list(role = "user", content = build_prompt_content(question, images))
   ))
   # Send the query to ChatGPT.
   chat_gpt_reply <- parse_response(
