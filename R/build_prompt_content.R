@@ -19,4 +19,3 @@ build_prompt_content <- function(question, images) {
     list(type = "image_url", image_url = list(url = image_url))
   }))
 }
-
