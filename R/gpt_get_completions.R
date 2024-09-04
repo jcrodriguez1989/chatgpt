@@ -72,6 +72,10 @@ gpt_get_completions <- function(prompt, openai_api_key = Sys.getenv("OPENAI_API_
     if (!post_res$status_code %in% 200:299) {
       stop(content(post_res))
     }
+    if (get_verbosity() > 1) {
+      # If verbose is over 1, show the ongoing GPT response.
+      message(content(post_res, as = "text", encoding = "UTF-8"))
+    }
     post_res <- content(post_res)
     final_res <- append(final_res, list(post_res))
     # In the case the finish_reason is the length of the message, then we need to keep querying.
