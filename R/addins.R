@@ -9,6 +9,7 @@ run_addin <- function(addin_name) {
   addin_function <- switch(addin_name,
     "comment_code" = comment_code,
     "complete_code" = complete_code,
+    "custom_prompt" = custom_prompt,
     "create_unit_tests" = create_unit_tests,
     "create_variable_name" = create_variable_name,
     "document_code" = document_code,
@@ -29,6 +30,9 @@ run_addin <- function(addin_name) {
   selected_code <- paste0(selected_code, collapse = "\n")
   # Apply the addin function.
   out <- addin_function(selected_code)
+  if (is.na(out)){
+    return()
+  }
   if (as.logical(Sys.getenv("OPENAI_ADDIN_REPLACE", FALSE))) {
     doc_range <- doc_context$selection[[1]]$range
     if (is_full_file) {
@@ -45,6 +49,7 @@ run_addin <- function(addin_name) {
 
 run_addin_comment_code <- function() run_addin("comment_code")
 run_addin_complete_code <- function() run_addin("complete_code")
+run_addin_custom_prompt <- function() run_addin("custom_prompt")
 run_addin_create_unit_tests <- function() run_addin("create_unit_tests")
 run_addin_create_variable_name <- function() run_addin("create_variable_name")
 run_addin_document_code <- function() run_addin("document_code")
