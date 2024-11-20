@@ -9,3 +9,6 @@
 assign("chat_session_messages", list(), envir = .state)
 
 api_url <- Sys.getenv("OPENAI_API_URL", "https://api.openai.com/v1")
+
+# GPT Models that doesn't allow the `system` parameter in messages.
+systemless_models <- c("o1-mini", "o1-preview")

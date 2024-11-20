@@ -15,9 +15,12 @@ reset_chat_session <- function(system_role = "You are a helpful assistant.", ses
   if (is.list(system_role)) {
     # If `system_role` is a list, then it is a ChatGPT session object.
     session <- system_role
-  } else {
+  } else if (!Sys.getenv("OPENAI_MODEL") %in% systemless_models) {
     # Otherwise, it's a string specifying ChatGPT's role.
     session <- list(list(role = "system", content = system_role))
+  } else {
+    warning("Couldn't assign default session to this GPT model.")
+    session <- list()
   }
   all_sessions <- get("chat_session_messages", envir = .state)
   all_sessions[[as.character(session_id)]] <- session

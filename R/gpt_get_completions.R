@@ -22,6 +22,11 @@ gpt_get_completions <- function(prompt, openai_api_key = Sys.getenv("OPENAI_API_
     presence_penalty = as.numeric(Sys.getenv("OPENAI_PRESENCE_PENALTY", 0)),
     logprobs = as.logical(Sys.getenv("OPENAI_LOGPROBS", FALSE))
   )
+  # These GPT models use different parameters.
+  if (Sys.getenv("OPENAI_MODEL") %in% systemless_models) {
+    params$max_completion_tokens <- params$max_tokens
+    params$max_tokens <- NULL
+  }
   if (get_verbosity()) {
     message(paste0("\n*** ChatGPT input:\n\n", prompt, "\n"))
   }
@@ -29,7 +34,7 @@ gpt_get_completions <- function(prompt, openai_api_key = Sys.getenv("OPENAI_API_
   if (nchar(return_language) > 0) {
     return_language <- paste0("You return all your replies in ", return_language, ".")
   }
-  if (is.null(messages)) {
+  if (is.null(messages) && Sys.getenv("OPENAI_MODEL") %in% systemless_models) {
     messages <- list(
       list(
         role = "system",
@@ -42,11 +47,13 @@ gpt_get_completions <- function(prompt, openai_api_key = Sys.getenv("OPENAI_API_
     )
   } else {
     # If there are messages provided, then add the `return_language` if available.
-    messages[[which(sapply(messages, function(message) message$role == "system"))]]$content <-
-      paste(
-        messages[[which(sapply(messages, function(message) message$role == "system"))]]$content,
-        return_language
+    system_msg_index <- which(sapply(messages, function(message) message$role == "system"))
+    if (length(system_msg_index) == 1) {
+      # If this GPT model has `system` parameter, assign the language to it.
+      messages[[system_msg_index]]$content <- paste(
+        messages[[system_msg_index]]$content, return_language
       )
+    }
   }
   # Get the proxy to use, if provided.
   proxy <- NULL

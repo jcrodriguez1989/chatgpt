@@ -4,6 +4,9 @@
 #'
 get_chat_session <- function(session_id = "1") {
   default_session <- list(list(role = "system", content = "You are a helpful assistant."))
+  if (Sys.getenv("OPENAI_MODEL") %in% systemless_models) {
+    default_session <- list()
+  }
   if (is.null(session_id)) {
     return(default_session)
   }
