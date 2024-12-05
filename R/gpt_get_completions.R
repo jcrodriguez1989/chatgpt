@@ -14,12 +14,13 @@ gpt_get_completions <- function(prompt, openai_api_key = Sys.getenv("OPENAI_API_
   }
   # See https://platform.openai.com/docs/api-reference/chat .
   params <- list(
-    model = Sys.getenv("OPENAI_MODEL", "gpt-3.5-turbo"),
+    model = Sys.getenv("OPENAI_MODEL", "gpt-4o-mini"),
     max_tokens = as.numeric(Sys.getenv("OPENAI_MAX_TOKENS", 256)),
     temperature = as.numeric(Sys.getenv("OPENAI_TEMPERATURE", 1)),
     top_p = as.numeric(Sys.getenv("OPENAI_TOP_P", 1)),
     frequency_penalty = as.numeric(Sys.getenv("OPENAI_FREQUENCY_PENALTY", 0)),
-    presence_penalty = as.numeric(Sys.getenv("OPENAI_PRESENCE_PENALTY", 0))
+    presence_penalty = as.numeric(Sys.getenv("OPENAI_PRESENCE_PENALTY", 0)),
+    logprobs = as.logical(Sys.getenv("OPENAI_LOGPROBS", FALSE))
   )
   if (get_verbosity()) {
     message(paste0("\n*** ChatGPT input:\n\n", prompt, "\n"))
@@ -70,6 +71,10 @@ gpt_get_completions <- function(prompt, openai_api_key = Sys.getenv("OPENAI_API_
     )
     if (!post_res$status_code %in% 200:299) {
       stop(content(post_res))
+    }
+    if (get_verbosity() > 1) {
+      # If verbose is over 1, show the ongoing GPT response.
+      message(content(post_res, as = "text", encoding = "UTF-8"))
     }
     post_res <- content(post_res)
     final_res <- append(final_res, list(post_res))

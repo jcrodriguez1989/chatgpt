@@ -355,9 +355,10 @@ The following environment variables can be set to tweak the behavior, as
 documented in
 <https://beta.openai.com/docs/api-reference/completions/create> .
 
-- `OPENAI_MODEL`; defaults to `"gpt-3.5-turbo"`
+- `OPENAI_MODEL`; defaults to `"gpt-4o-mini"`
 - `OPENAI_MAX_TOKENS`; defaults to `256`
 - `OPENAI_TEMPERATURE`; defaults to `1`
 - `OPENAI_TOP_P`; defaults to `1`
 - `OPENAI_FREQUENCY_PENALTY`; defaults to `0`
 - `OPENAI_PRESENCE_PENALTY`; defaults to `0`
+- `OPENAI_LOGPROBS`; defaults to `FALSE`
